@@ -121,7 +121,7 @@
               </layout>
              </item>
              <item>
-              <spacer name="verticalSpacer">
+              <spacer name="apTurnSpacer">
                <property name="orientation">
                 <enum>Qt::Orientation::Vertical</enum>
                </property>
@@ -217,7 +217,7 @@
               </layout>
              </item>
              <item>
-              <spacer name="verticalSpacer_2">
+              <spacer name="armorHpSpacer">
                <property name="orientation">
                 <enum>Qt::Orientation::Vertical</enum>
                </property>
