@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/arena.png</file>
+        <file>assets/boss.png</file>
+        <file>assets/karta_czarodziej.png</file>
+        <file>assets/karta_driada.png</file>
+        <file>assets/karta_lucznik.png</file>
+        <file>assets/karta_rewers.png</file>
+        <file>assets/karta_rycerz.png</file>
+        <file>assets/pkt_akcji.png</file>
+        <file>assets/serce.png</file>
+        <file>assets/tarcza.png</file>
+        <file>assets/avatar.png</file>
+        <file>assets/miecze.png</file>
+        <file>assets/przycisk.png</file>
+    </qresource>
+</RCC>
