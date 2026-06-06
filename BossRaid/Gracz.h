@@ -20,6 +20,11 @@ public:
     Gracz(std::string n, int startHp, int startPA) : Postac(n, startHp) {
         maxPunktyAkcji = startPA;
         punktyAkcji = startPA;
+        }
+    void usunKarteZReki(int indeks) {
+        if (indeks >= 0 && indeks < reka.size()) {
+            reka.erase(reka.begin() + indeks);
+        }
     }
     // Gettery
     int getPA() const { return punktyAkcji; }

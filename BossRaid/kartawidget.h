@@ -20,7 +20,7 @@ public:
     void ustawGrafike(const QString &sciezkaDoFoto);
     void oznaczJakoWybrana(bool status);
     bool czyWybrana = false;
-
+    void ustawStatystyki(int obrazenia, int kosztPA);
 signals:
     void kartaKliknieta(KartaWidget* kliknietaKarta);
 

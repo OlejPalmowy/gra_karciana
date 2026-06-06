@@ -54,3 +54,11 @@ void KartaWidget::oznaczJakoWybrana(bool status)
         czyWybrana = false;
     }
 }
+
+void KartaWidget::ustawStatystyki(int obrazenia, int kosztPA)
+{
+    // Zamieniamy liczby (int) na tekst (QString), żeby Label mógł je wyświetlić
+    // Upewnij się, że nazwy "labelAtak" i "labelHP" zgadzają się z tymi w Qt Designerze!
+    ui->labelAtak->setText(QString::number(obrazenia));
+    ui->labelPa->setText(QString::number(kosztPA));
+}
