@@ -377,6 +377,32 @@
          <item>
           <layout class="QVBoxLayout" name="deckLayout">
            <item>
+            <widget class="QPushButton" name="btnReroll">
+             <property name="maximumSize">
+              <size>
+               <width>120</width>
+               <height>165</height>
+              </size>
+             </property>
+             <property name="layoutDirection">
+              <enum>Qt::LayoutDirection::LeftToRight</enum>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="assets.qrc">
+               <normaloff>:/assets/karta_rewers.png</normaloff>:/assets/karta_rewers.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>120</width>
+               <height>165</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
             <spacer name="deckSpacer">
              <property name="orientation">
               <enum>Qt::Orientation::Vertical</enum>
@@ -388,19 +414,6 @@
               </size>
              </property>
             </spacer>
-           </item>
-           <item>
-            <widget class="QLabel" name="deckIcon">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="pixmap">
-              <pixmap resource="assets.qrc">:/assets/karta_rewers.png</pixmap>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignmentFlag::AlignCenter</set>
-             </property>
-            </widget>
            </item>
            <item>
             <widget class="QLabel" name="deckText">

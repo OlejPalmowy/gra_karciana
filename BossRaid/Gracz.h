@@ -5,48 +5,61 @@
 #include "Karta.h"
 #include <vector>
 
-// Ten dwukropek oznacza: Gracz "dziedziczy" po klasie Postac (ma jej HP i pancerz z automatu)
 class Gracz : public Postac {
 private:
     int punktyAkcji;
     int maxPunktyAkcji;
-
-    // Wektor to taka "gumowa" tablica. Idealna na karty, bo ręka gracza może rosnąć i maleć.
     std::vector<Karta> reka;
+    int bonusPA = 0; // Dodano zmienną do bonusu z Łucznika
 
 public:
-    // Konstruktor Gracza.
-    // Magia po dwukropku ( : Postac(...) ) to wysłanie nazwy i HP do "fabryki" klasy bazowej
     Gracz(std::string n, int startHp, int startPA) : Postac(n, startHp) {
         maxPunktyAkcji = startPA;
         punktyAkcji = startPA;
-        }
+    }
+
     void usunKarteZReki(int indeks) {
         if (indeks >= 0 && indeks < reka.size()) {
             reka.erase(reka.begin() + indeks);
         }
     }
-    // Gettery
+
+    // Funkcja do leczenia
+    void ulecz(int wartosc) {
+        hp += wartosc;
+        if (hp > maxHp) {
+            hp = maxHp; // Zabezpieczenie, żeby nie przekroczyć Max HP
+        }
+    }
+
+    // Funkcja do Rerolla
+    void wyczyscReke() {
+        reka.clear();
+    }
+
     int getPA() const { return punktyAkcji; }
     std::vector<Karta> getReka() const { return reka; }
 
-    // Zarządzanie Punktami Akcji
-    void resetujPA() {
-        punktyAkcji = maxPunktyAkcji;
+    void dodajBonusPA(int wartosc) {
+        bonusPA += wartosc;
+    }
+
+    void odnowPA() {
+        // Dodajemy stałą wartość (np. 3) + to, co wypracował Łucznik
+        punktyAkcji += (9 + bonusPA);
+        bonusPA = 0; // Zerujemy bonus
     }
 
     bool zuzyjPA(int koszt) {
         if (punktyAkcji >= koszt) {
             punktyAkcji -= koszt;
-            return true; // Udało się, gracz miał wystarczająco PA
+            return true;
         }
-        return false; // Brakuje PA, akcja odrzucona!
+        return false;
     }
 
-    // Zarządzanie kartami
     void dodajKarteDoReki(Karta k) {
-        reka.push_back(k); // push_back po prostu wciska nową kartę na sam koniec ręki
+        reka.push_back(k);
     }
 };
-
 #endif // GRACZ_H

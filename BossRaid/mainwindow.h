@@ -27,12 +27,15 @@ private:
     void aktualizujInterfejs();
     void dodajKomunikatGracza(const QString &tekst);
     void dodajKomunikatBossa(const QString &tekst);
-    void sprawdzKoniecGry();
+    void sprawdzKoniecGry(int ostatnieObrazenia = 0); // Domyślnie 0, żeby stare wywołania się nie wywaliły
+    std::vector<KartaWidget*> widgetyWRece;
+
 
 private slots:
     void onKartaKliknieta(KartaWidget* kliknietaKarta);
     void zagrajWybranaKarte(); // Od mieczy (Atak)
     void zakonczTure();        // Od końca tury
+    void przerolujKarty();
 };
 
 #endif // MAINWINDOW_H

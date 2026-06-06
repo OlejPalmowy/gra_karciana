@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    aktualnyGracz = new Gracz("Bohater", 30, 18);
+    aktualnyGracz = new Gracz("Bohater", 30, 12);
     bossRaidu = new Boss("Mroczny Władca", 100);
     bossRaidu->dodajPancerz(30);
     // --- TO MUSISZ DODAĆ: Ustawiamy maksymalny zakres paska na podstawie MaxHP z logiki Bossa ---
@@ -30,6 +30,8 @@ MainWindow::MainWindow(QWidget *parent)
     // Podłączamy przycisk Końca Tury
     connect(ui->endTurnButton, &QPushButton::clicked, this, &MainWindow::zakonczTure);
 
+    connect(ui->btnReroll, &QPushButton::clicked, this, &MainWindow::przerolujKarty);
+
     dodajKomunikatGracza("Walka z Mrocznym Władcą!\nTwoja tura.");
 }
 MainWindow::~MainWindow()
@@ -39,32 +41,43 @@ MainWindow::~MainWindow()
 
 void MainWindow::dodajLosowaKarte()
 {
-    if (ui->handLayout->count() >= 4) return;
+    if (aktualnyGracz->getReka().size() >= 4) return;
 
-    // 1. Losujemy jaka to ma być karta (0 = Rycerz, 1 = Łucznik, 2 = Mag)
-    int losowyIndeks = QRandomGenerator::global()->bounded(3);
-
-    // Zmienne pomocnicze - przygotowujemy pustą ścieżkę i pustą kartę
     QString sciezkaGrafiki;
     Karta nowaKarta("", 0, 0, 0, 0, 0);
 
-    // 2. Wypełniamy dane w zależności od tego, co się wylosowało
+    // NOWOŚĆ: Losujemy liczbę od 0 do 99, żeby ustalić szanse procentowe
+    int szansa = QRandomGenerator::global()->bounded(100);
+    int losowyIndeks = 0;
+
+    // 15% szans na drop Legendarnej Uzdrowicielki!
+    if (szansa < 8) {
+        losowyIndeks = 3;
+    } else {
+        // W przeciwnym razie losujemy standardowo Rycerza, Łucznika lub Maga (0, 1 lub 2)
+        losowyIndeks = QRandomGenerator::global()->bounded(3);
+    }
+
+    // Wypełniamy dane
     if (losowyIndeks == 0) {
-        // Rycerz: 3 obrażeń w HP, 9 w pancerz, koszt 1 PA
-        nowaKarta = Karta("Rycerz", 1, 3, 9, 0, 1);
+        nowaKarta = Karta("Rycerz", 1, 3, 9, 0, 3);
         sciezkaGrafiki = ":/assets/karta_rycerz.png";
     }
     else if (losowyIndeks == 1) {
-        // Łucznik: 6 obrażeń w HP, 6 w pancerz, koszt 2 PA
-        nowaKarta = Karta("Łucznik", 2, 6, 6, 0, 2);
+        nowaKarta = Karta("Łucznik", 2, 4, 3, 0, 1);
         sciezkaGrafiki = ":/assets/karta_lucznik.png";
     }
     else if (losowyIndeks == 2) {
-        // Mag: 12 obrażeń w HP, 3 w pancerz, koszt 3 PA
-        nowaKarta = Karta("Mag", 3, 12, 3, 0, 3);
+        nowaKarta = Karta("Mag", 3, 15, 3, 0, 3);
         sciezkaGrafiki = ":/assets/karta_czarodziej.png";
     }
+    else if (losowyIndeks == 3) {
+        // Uzdrowicielka (Typ = 4). Koszt 0 PA!
+        nowaKarta = Karta("Driada", 4, 0, 0, 0, 0);
 
+        // PAMIĘTAJ O PODMIANIE ŚCIEŻKI NA NAZWĘ TWOJEJ GRAFIKI!
+        sciezkaGrafiki = ":/assets/karta_driada.png";
+    }
     // 3. Dodajemy gotową, wylosowaną kartę do logiki gracza
     aktualnyGracz->dodajKarteDoReki(nowaKarta);
 
@@ -78,6 +91,8 @@ void MainWindow::dodajLosowaKarte()
 
     connect(nowyWidget, &KartaWidget::kartaKliknieta, this, &MainWindow::onKartaKliknieta);
     ui->handLayout->addWidget(nowyWidget);
+
+    widgetyWRece.push_back(nowyWidget);
 }
 
 void MainWindow::onKartaKliknieta(KartaWidget* kliknietaKarta)
@@ -88,38 +103,31 @@ void MainWindow::onKartaKliknieta(KartaWidget* kliknietaKarta)
 
 void MainWindow::zagrajWybranaKarte()
 {
-    // 1. Zbieramy wszystkie podniesione karty
-    // Używamy odwróconej pętli, bo jak potem będziemy usuwać karty z ręki,
-    // usunięcie pierwszej zmieniłoby numery pozostałych. Usuwając od końca - omijamy problem.
     std::vector<int> indeksyDoUsuniecia;
-    std::vector<KartaWidget*> widgetyDoUsuniecia;
     int sumaKosztuPA = 0;
 
-    for(int i = ui->handLayout->count() - 1; i >= 0; i--) {
-        KartaWidget* kw = qobject_cast<KartaWidget*>(ui->handLayout->itemAt(i)->widget());
-        if (kw != nullptr && kw->czyWybrana) {
+    // 1. Szukamy wybranych kart TYLKO w naszej zaufanej liście (od tyłu, aby nie psuć indeksów)
+    for(int i = widgetyWRece.size() - 1; i >= 0; i--) {
+        if (widgetyWRece[i]->czyWybrana) {
             indeksyDoUsuniecia.push_back(i);
-            widgetyDoUsuniecia.push_back(kw);
-            // Zbieramy całkowity koszt PA tego combosa
+            // Pobieramy koszt PA – teraz indeksy zawsze w 100% się zgadzają!
             sumaKosztuPA += aktualnyGracz->getReka()[i].getKosztPA();
         }
     }
 
-    // 2. Bezpieczniki: czy cokolwiek wybrano i czy nie przekroczono limitu 3 kart
+    // Bezpieczniki
     if (indeksyDoUsuniecia.empty()) return;
-    if (indeksyDoUsuniecia.size() > 3) {
-        // Tu docelowo można dać komunikat "Maksymalnie 3 karty!", na razie po prostu przerywamy
-        return;
-    }
+    if (indeksyDoUsuniecia.size() > 3) return;
 
-    // 3. Sprawdzamy, czy stać nas na całą akcję naraz
+    // 2. Jeśli nas stać, odpalamy akcję
     if (aktualnyGracz->zuzyjPA(sumaKosztuPA)) {
 
         std::vector<Karta> reka = aktualnyGracz->getReka();
 
-        // 4. Odpalamy ataki (odwracamy pętlę z powrotem, żeby ataki szły od lewej do prawej)
+        // 3. Odpalamy ataki
         for (int i = indeksyDoUsuniecia.size() - 1; i >= 0; i--) {
-            Karta karta = reka[indeksyDoUsuniecia[i]];
+            int idx = indeksyDoUsuniecia[i];
+            Karta karta = reka[idx];
 
             int typ = karta.getTyp();
             int dmgHP = karta.getObrazeniaHP();
@@ -131,73 +139,84 @@ void MainWindow::zagrajWybranaKarte()
                 bossRaidu->otrzymajObrazenia(dmgHP);
                 aktualnyGracz->dodajPancerz(5);
             }
-            else if (typ == 2) { // ŁUCZNIK
-                if (pancerzBossa > 0) {
-                    if (dmgArmor > pancerzBossa) {
-                        int nadmiar = dmgArmor - pancerzBossa;
-                        int bonusDmgHP = nadmiar / 2;
-                        bossRaidu->otrzymajObrazenia(pancerzBossa);
-                        bossRaidu->otrzymajObrazenia(dmgHP + bonusDmgHP);
-                    } else {
-                        bossRaidu->otrzymajObrazenia(dmgArmor);
-                    }
-                } else {
-                    bossRaidu->otrzymajObrazenia(dmgHP);
-                }
+            else if (typ == 2) { // ŁUCZNIK (Szybki, tani standardowy atak)
+                // Po prostu zadaje swoje obrażenia w pancerz, a potem w HP
+                bossRaidu->otrzymajObrazenia(dmgArmor);
+                bossRaidu->otrzymajObrazenia(dmgHP);
             }
             else if (typ == 3) { // MAG
                 bossRaidu->resetujPancerz();
                 bossRaidu->otrzymajObrazenia(dmgHP);
                 bossRaidu->dodajPancerz(pancerzBossa);
             }
+            else if (typ == 4) { // UZDROWICIELKA
+                aktualnyGracz->ulecz(10); // Odnawia 10 HP
+                dodajKomunikatGracza("Uzdrowicielka leczy Twoje rany! (+10 HP)");
+            }
         }
 
-        // 5. Sprzątanie: usuwamy wszystkie rzucone karty ze stołu
+        // 4. Sprzątanie ze stołu i logiki gry
         for (size_t i = 0; i < indeksyDoUsuniecia.size(); i++) {
-            aktualnyGracz->usunKarteZReki(indeksyDoUsuniecia[i]);
-            KartaWidget* kw = widgetyDoUsuniecia[i];
+            int idx = indeksyDoUsuniecia[i];
+
+            // Usuwamy kartę z rąk gracza
+            aktualnyGracz->usunKarteZReki(idx);
+
+            // Wyciągamy fizyczny widget z naszej listy i zdejmujemy z okna
+            KartaWidget* kw = widgetyWRece[idx];
             ui->handLayout->removeWidget(kw);
             kw->hide();
             kw->deleteLater();
+
+            // Kasujemy wpis oidgecie z naszej listy (żeby rozmiar idealnie zgadzał się z wektorem logiki!)
+            widgetyWRece.erase(widgetyWRece.begin() + idx);
         }
 
-        // 6. Dociągamy dokładnie tyle nowych kart, ile wyrzuciliśmy
+        // 5. Dociągamy brakujące karty
         for (size_t i = 0; i < indeksyDoUsuniecia.size(); i++) {
             dodajLosowaKarte();
         }
 
-        aktualizujInterfejs(); // Upewniamy się, że HP, Pancerz i PA od razu przeskoczą na ekranie
+        // 1. Najpierw sprawdzamy furię Bossa
+        if (bossRaidu->getFaza() == 1 && bossRaidu->getHp() <= (bossRaidu->getMaxHp() / 2)) {
+            bossRaidu->aktualizujFaze(); // Tutaj boss dostaje matematycznie +15 pancerza
+
+            dodajKomunikatBossa("\"NIE POZWOLĘ SIĘ POKONAĆ, NĘDZNY ROBAKU!!!\"");
+            dodajKomunikatGracza("Uważaj! Boss wpada w furię! Zyskał +15 pancerza i bije teraz podwójnie!");
+        }
+
+        // 2. DOPIERO TERAZ odświeżamy cały interfejs na ekranie!
+        aktualizujInterfejs(); // Ta funkcja teraz pobierze już zaktualizowany, nowy pancerz
+
         sprawdzKoniecGry();
     }
 }
 
 void MainWindow::zakonczTure()
-{
-    // Losowanie ataku (1-3)
-    int typAtaku = QRandomGenerator::global()->bounded(1, 4);
+    {
+        int typAtaku = QRandomGenerator::global()->bounded(1, 4);
 
-    // Boss atakuje
-    int obrazeniaOdBossa = bossRaidu->wykonajAtak(typAtaku);
-    aktualnyGracz->otrzymajObrazenia(obrazeniaOdBossa);
-    aktualnyGracz->resetujPA();
+        int obrazeniaOdBossa = bossRaidu->wykonajAtak(typAtaku);
+        aktualnyGracz->otrzymajObrazenia(obrazeniaOdBossa);
 
-    // Rozdzielamy dialogi do dwóch Labeli!
-    if (typAtaku == 1) {
-        dodajKomunikatBossa("\"Giń, śmiertelniku!\"");
-        dodajKomunikatGracza("Rycerz: Boss wykonuje zwykłe cięcie! (-" + QString::number(obrazeniaOdBossa) + " HP)");
-    }
-    else if (typAtaku == 2) {
-        dodajKomunikatBossa("\"Aaa wy sku***! Oberwiecie za to!\"");
-        dodajKomunikatGracza("Rycerz: Uważaj! Boss ładuje potężne uderzenie! (-" + QString::number(obrazeniaOdBossa) + " HP)");
-    }
-    else if (typAtaku == 3) {
-        dodajKomunikatBossa("\"Mrok mnie chroni!\"");
-        dodajKomunikatGracza("Rycerz: Boss odnawia barierę! (+15 Pancerza)");
-    }
+        aktualnyGracz->odnowPA();
 
-    aktualizujInterfejs();
-    sprawdzKoniecGry();
-}
+        if (typAtaku == 1) {
+            dodajKomunikatBossa("\"Giń, śmiertelniku!\"");
+            dodajKomunikatGracza("Rycerz: Mroczny Władca cię atakuje!\n-> Otrzymujesz " + QString::number(obrazeniaOdBossa) + " obrażeń!");
+        }
+        else if (typAtaku == 2) {
+            dodajKomunikatBossa("\"Aaa wy sku***! Oberwiecie za to!\"");
+            dodajKomunikatGracza("Rycerz: Demon wpada w furię i ładuje potężny cios!\n-> Otrzymujesz aż " + QString::number(obrazeniaOdBossa) + " obrażeń!");
+        }
+        else if (typAtaku == 3) {
+            dodajKomunikatBossa("\"Mrok mnie chroni!\"");
+            dodajKomunikatGracza("Rycerz: Boss ignoruje atak i skupia energię...\n-> Demon odnawia swoją barierę!");
+        }
+
+        aktualizujInterfejs();
+        sprawdzKoniecGry(obrazeniaOdBossa);
+    }
 
 void MainWindow::aktualizujInterfejs()
 {
@@ -223,20 +242,52 @@ void MainWindow::dodajKomunikatBossa(const QString &tekst)
     ui->bossText->setText(tekst);
 }
 
-void MainWindow::sprawdzKoniecGry()
+void MainWindow::sprawdzKoniecGry(int ostatnieObrazenia)
 {
     if (bossRaidu->getHp() <= 0) {
-        dodajKomunikatBossa("\"NIEEE! Jak to możliwe...\"");
-        dodajKomunikatGracza("ZWYCIĘSTWO!\nMroczny Władca został pokonany!");
+            dodajKomunikatBossa("\"NIEEE! Jak to możliwe...\"");
+            dodajKomunikatGracza("ZWYCIĘSTWO!\nMroczny Władca został pokonany!");
 
-        ui->btnZagraj->setEnabled(false);
-        ui->endTurnButton->setEnabled(false);
+            ui->btnZagraj->setEnabled(false);
+            ui->endTurnButton->setEnabled(false);
     }
     else if (aktualnyGracz->getHp() <= 0) {
-        dodajKomunikatBossa("\"Hahaha! Żałosny robak!\"");
-        dodajKomunikatGracza("GAME OVER!\nPoległeś w nierównej walce...");
+            dodajKomunikatBossa("\"Hahaha! Żałosny robak!\"");
+
+            // ZMIANA: Rycerz melduje o potężnym hicie przed śmiercią
+            dodajKomunikatGracza("GAME OVER!\nRycerz: Otrzymaliśmy śmiertelny cios za "
+                                 + QString::number(ostatnieObrazenia)
+                                 + " HP... Poległeś w nierównej walce.");
 
         ui->btnZagraj->setEnabled(false);
-        ui->endTurnButton->setEnabled(false);
+            ui->endTurnButton->setEnabled(false);
+    }
+}
+
+void MainWindow::przerolujKarty()
+{
+    // Reroll kosztuje np. 2 PA
+    if (aktualnyGracz->zuzyjPA(2)) {
+
+        // 1. Kasujemy fizyczne widgety z okienka
+        for (KartaWidget* kw : widgetyWRece) {
+            ui->handLayout->removeWidget(kw);
+            kw->hide();
+            kw->deleteLater();
+        }
+        widgetyWRece.clear(); // Opróżniamy naszą listę pomocniczą
+
+        // 2. Czyścimy twardą logikę gracza
+        aktualnyGracz->wyczyscReke();
+
+        // 3. Dociągamy 4 nowe karty z szansą na leczenie
+        for (int i = 0; i < 4; i++) {
+            dodajLosowaKarte();
+        }
+
+        aktualizujInterfejs();
+        dodajKomunikatGracza("Wymieniłeś wszystkie karty! (-2 PA)");
+    } else {
+        dodajKomunikatGracza("Brak PA na wymianę kart!");
     }
 }
