@@ -8,9 +8,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    aktualnyGracz = new Gracz("Bohater", 30, 3);
+    aktualnyGracz = new Gracz("Bohater", 30, 18);
     bossRaidu = new Boss("Mroczny Władca", 100);
-
+    bossRaidu->dodajPancerz(30);
     // --- TO MUSISZ DODAĆ: Ustawiamy maksymalny zakres paska na podstawie MaxHP z logiki Bossa ---
     ui->bossHpBar->setMaximum(bossRaidu->getMaxHp());
 
@@ -24,8 +24,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     aktualizujInterfejs();
 
-    // Podłączamy Twój przycisk do funkcji zagrywania karty
-    connect(ui->endTurnButton, &QPushButton::clicked, this, &MainWindow::zagrajWybranaKarte);
+    // Podłączamy przycisk z mieczami (Atak)
+    connect(ui->btnZagraj, &QPushButton::clicked, this, &MainWindow::zagrajWybranaKarte);
+
+    // Podłączamy przycisk Końca Tury
+    connect(ui->endTurnButton, &QPushButton::clicked, this, &MainWindow::zakonczTure);
 }
 MainWindow::~MainWindow()
 {
@@ -83,50 +86,98 @@ void MainWindow::onKartaKliknieta(KartaWidget* kliknietaKarta)
 
 void MainWindow::zagrajWybranaKarte()
 {
-    // 1. Szukamy, która karta jest zaznaczona (ma flagę czyWybrana == true)
-    int indeksWybranej = -1;
-    KartaWidget* wybranyWidget = nullptr;
+    // 1. Zbieramy wszystkie podniesione karty
+    // Używamy odwróconej pętli, bo jak potem będziemy usuwać karty z ręki,
+    // usunięcie pierwszej zmieniłoby numery pozostałych. Usuwając od końca - omijamy problem.
+    std::vector<int> indeksyDoUsuniecia;
+    std::vector<KartaWidget*> widgetyDoUsuniecia;
+    int sumaKosztuPA = 0;
 
-    for(int i = 0; i < ui->handLayout->count(); i++) {
-        // qobject_cast pozwala nam bezpiecznie wyciągnąć Twój KartaWidget z layoutu
+    for(int i = ui->handLayout->count() - 1; i >= 0; i--) {
         KartaWidget* kw = qobject_cast<KartaWidget*>(ui->handLayout->itemAt(i)->widget());
-        if (kw != nullptr && kw->czyWybrana == true) {
-            indeksWybranej = i;
-            wybranyWidget = kw;
-            break; // Znaleźliśmy podniesioną kartę, przerywamy szukanie
+        if (kw != nullptr && kw->czyWybrana) {
+            indeksyDoUsuniecia.push_back(i);
+            widgetyDoUsuniecia.push_back(kw);
+            // Zbieramy całkowity koszt PA tego combosa
+            sumaKosztuPA += aktualnyGracz->getReka()[i].getKosztPA();
         }
     }
 
-    // Jeśli żadna nie jest w górze, przerywamy akcję (nic się nie dzieje)
-    if (indeksWybranej == -1) return;
-
-    // 2. Pobieramy dane wybranej karty z Twojego wektora "reka" z klasy Gracz
-    std::vector<Karta> rekaGracza = aktualnyGracz->getReka();
-    Karta kartaDoZagrania = rekaGracza[indeksWybranej];
-
-    // 3. Sprawdzamy, czy masz wystarczająco Punktów Akcji (funkcja zuzyjPA() sama je odejmie, jeśli tak)
-    if (aktualnyGracz->zuzyjPA(kartaDoZagrania.getKosztPA())) {
-
-        // 4. Zadajemy obrażenia Bossowi!
-        // Na ten moment wrzucamy prostą sumę. Bardziej zaawansowaną logikę przebijania pancerza dopiszemy w następnym kroku.
-        int sumaObrazen = kartaDoZagrania.getObrazeniaHP() + kartaDoZagrania.getObrazeniaPancerz();
-        bossRaidu->otrzymajObrazenia(sumaObrazen);
-
-        // 5. Sprzątanie w logice: usuwamy tę kartę z wektora Gracza
-        aktualnyGracz->usunKarteZReki(indeksWybranej);
-
-        // 6. Sprzątanie na ekranie (ZMIANA TUTAJ)
-        ui->handLayout->removeWidget(wybranyWidget); // Wyrywamy kartę z layoutu natychmiast
-        wybranyWidget->hide();                       // Chowamy ją, by zniknęła z oczu
-        wybranyWidget->deleteLater();                // Leniwe usunięcie z pamięci
-
-        // 7. Od razu dobieramy nową kartę na jej miejsce!
-        dodajLosowaKarte();
-
-    } else {
-        // Tutaj w przyszłości można wyświetlić np. czerwony napis "Brak Punktów Akcji!" na ekranie
+    // 2. Bezpieczniki: czy cokolwiek wybrano i czy nie przekroczono limitu 3 kart
+    if (indeksyDoUsuniecia.empty()) return;
+    if (indeksyDoUsuniecia.size() > 3) {
+        // Tu docelowo można dać komunikat "Maksymalnie 3 karty!", na razie po prostu przerywamy
+        return;
     }
 
+    // 3. Sprawdzamy, czy stać nas na całą akcję naraz
+    if (aktualnyGracz->zuzyjPA(sumaKosztuPA)) {
+
+        std::vector<Karta> reka = aktualnyGracz->getReka();
+
+        // 4. Odpalamy ataki (odwracamy pętlę z powrotem, żeby ataki szły od lewej do prawej)
+        for (int i = indeksyDoUsuniecia.size() - 1; i >= 0; i--) {
+            Karta karta = reka[indeksyDoUsuniecia[i]];
+
+            int typ = karta.getTyp();
+            int dmgHP = karta.getObrazeniaHP();
+            int dmgArmor = karta.getObrazeniaPancerz();
+            int pancerzBossa = bossRaidu->getPancerz();
+
+            if (typ == 1) { // RYCERZ
+                bossRaidu->otrzymajObrazenia(dmgArmor);
+                bossRaidu->otrzymajObrazenia(dmgHP);
+                aktualnyGracz->dodajPancerz(5);
+            }
+            else if (typ == 2) { // ŁUCZNIK
+                if (pancerzBossa > 0) {
+                    if (dmgArmor > pancerzBossa) {
+                        int nadmiar = dmgArmor - pancerzBossa;
+                        int bonusDmgHP = nadmiar / 2;
+                        bossRaidu->otrzymajObrazenia(pancerzBossa);
+                        bossRaidu->otrzymajObrazenia(dmgHP + bonusDmgHP);
+                    } else {
+                        bossRaidu->otrzymajObrazenia(dmgArmor);
+                    }
+                } else {
+                    bossRaidu->otrzymajObrazenia(dmgHP);
+                }
+            }
+            else if (typ == 3) { // MAG
+                bossRaidu->resetujPancerz();
+                bossRaidu->otrzymajObrazenia(dmgHP);
+                bossRaidu->dodajPancerz(pancerzBossa);
+            }
+        }
+
+        // 5. Sprzątanie: usuwamy wszystkie rzucone karty ze stołu
+        for (size_t i = 0; i < indeksyDoUsuniecia.size(); i++) {
+            aktualnyGracz->usunKarteZReki(indeksyDoUsuniecia[i]);
+            KartaWidget* kw = widgetyDoUsuniecia[i];
+            ui->handLayout->removeWidget(kw);
+            kw->hide();
+            kw->deleteLater();
+        }
+
+        // 6. Dociągamy dokładnie tyle nowych kart, ile wyrzuciliśmy
+        for (size_t i = 0; i < indeksyDoUsuniecia.size(); i++) {
+            dodajLosowaKarte();
+        }
+
+        aktualizujInterfejs(); // Upewniamy się, że HP, Pancerz i PA od razu przeskoczą na ekranie
+    }
+}
+
+void MainWindow::zakonczTure()
+{
+    // 1. Zakończenie tury odnawia Twoje Punkty Akcji do pełna (max 3)
+    aktualnyGracz->resetujPA();
+
+    // 2. Boss wykonuje atak! (Na razie rzuca go w próżnię, bo nie mamy paska HP gracza, ale funkcja działa w tle)
+    int obrazeniaOdBossa = bossRaidu->wykonajAtak();
+    aktualnyGracz->otrzymajObrazenia(obrazeniaOdBossa);
+
+    // 3. Aktualizujemy ekran
     aktualizujInterfejs();
 }
 
@@ -135,4 +186,7 @@ void MainWindow::aktualizujInterfejs()
     // Zamieniamy liczby z logiki na tekst i wrzucamy do odpowiednich labeli na ekranie
     ui->bossHpBar->setValue(bossRaidu->getHp());
     ui->apText->setText(QString::number(aktualnyGracz->getPA()));
+
+    // Wyświetlanie aktualnego pancerza Bossa
+        ui->labelBossPancerz->setText(QString::number(bossRaidu->getPancerz()));
 }

@@ -28,7 +28,8 @@ private:
 
 private slots:
     void onKartaKliknieta(KartaWidget* kliknietaKarta);
-    void zagrajWybranaKarte();
+    void zagrajWybranaKarte(); // Od mieczy (Atak)
+    void zakonczTure();        // Od końca tury
 };
 
 #endif // MAINWINDOW_H
