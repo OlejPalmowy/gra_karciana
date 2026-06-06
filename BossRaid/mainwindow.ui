@@ -141,22 +141,22 @@
               </spacer>
              </item>
              <item>
+              <widget class="QLabel" name="turnIcon">
+               <property name="text">
+                <string/>
+               </property>
+               <property name="pixmap">
+                <pixmap resource="assets.qrc">:/assets/avatar.png</pixmap>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
               <layout class="QHBoxLayout" name="tura">
                <item>
-                <widget class="QLabel" name="turnIcon">
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="pixmap">
-                  <pixmap resource="assets.qrc">:/assets/avatar.png</pixmap>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="turnText">
+                <widget class="QLabel" name="labelKomunikaty">
                  <property name="text">
                   <string>Tura:</string>
                  </property>

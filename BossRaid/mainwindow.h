@@ -25,6 +25,8 @@ private:
     Gracz *aktualnyGracz;
     Boss *bossRaidu;
     void aktualizujInterfejs();
+    void dodajKomunikat(const QString &tekst);
+    void sprawdzKoniecGry();
 
 private slots:
     void onKartaKliknieta(KartaWidget* kliknietaKarta);
