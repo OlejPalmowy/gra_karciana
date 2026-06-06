@@ -419,25 +419,12 @@
          </item>
          <item>
           <layout class="QVBoxLayout" name="endTurnLayout">
-           <item>
-            <spacer name="endTurnSpacer">
-             <property name="orientation">
-              <enum>Qt::Orientation::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignVCenter">
+           <item alignment="Qt::AlignmentFlag::AlignHCenter">
             <widget class="QPushButton" name="btnZagraj">
              <property name="minimumSize">
               <size>
-               <width>120</width>
-               <height>0</height>
+               <width>150</width>
+               <height>60</height>
               </size>
              </property>
              <property name="maximumSize">
@@ -448,6 +435,19 @@
              </property>
              <property name="layoutDirection">
               <enum>Qt::LayoutDirection::LeftToRight</enum>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton {
+    border-image: url(:/assets/przycisk.png);
+    color: black; /* Kolor tekstu */
+    font-weight: bold; /* Pogrubienie tekstu */
+    font-size: 12px; /* Rozmiar czcionki */
+}
+
+QPushButton:pressed {
+    /* Ten fragment sprawia, że grafika i tekst lekko &quot;siadają&quot; przy kliknięciu */
+    margin-top: 2px;
+}</string>
              </property>
              <property name="text">
               <string/>
@@ -464,12 +464,25 @@
              </property>
             </widget>
            </item>
+           <item>
+            <spacer name="endTurnSpacer">
+             <property name="orientation">
+              <enum>Qt::Orientation::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
            <item alignment="Qt::AlignmentFlag::AlignHCenter">
             <widget class="QPushButton" name="endTurnButton">
              <property name="minimumSize">
               <size>
-               <width>100</width>
-               <height>40</height>
+               <width>150</width>
+               <height>60</height>
               </size>
              </property>
              <property name="maximumSize">
