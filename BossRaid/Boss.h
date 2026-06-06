@@ -25,14 +25,30 @@ public:
     }
 
     // Funkcja do zadawania obrażeń graczowi - interfejs wywoła to co turę
-    int wykonajAtak() {
-        aktualizujFaze(); // Przed atakiem zawsze sprawdzamy, czy się nie wkurzył
+    // Zmieniamy funkcję, by przyjmowała wylosowany "typ" ataku z zewnątrz
+    int wykonajAtak(int typAtaku) {
+        aktualizujFaze();
 
-        if (faza == 1) {
-            return 15; // Zwykły, bazowy atak
-        } else {
-            return 30; // Atak furii w 2 fazie
+        int dmg = 0;
+
+        // 1 = Zwykły cios, 2 = Silny cios, 3 = Obrona
+        if (typAtaku == 1) {
+            dmg = 15;
         }
+        else if (typAtaku == 2) {
+            dmg = 25;
+        }
+        else if (typAtaku == 3) {
+            dodajPancerz(15);
+            dmg = 0; // Nie zadaje obrażeń, bo się broni
+        }
+
+        // Jeśli ma mało HP (Faza 2), bije podwójnie!
+        if (faza == 2) {
+            dmg *= 2;
+        }
+
+        return dmg;
     }
 };
 

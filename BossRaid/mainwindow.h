@@ -25,7 +25,8 @@ private:
     Gracz *aktualnyGracz;
     Boss *bossRaidu;
     void aktualizujInterfejs();
-    void dodajKomunikat(const QString &tekst);
+    void dodajKomunikatGracza(const QString &tekst);
+    void dodajKomunikatBossa(const QString &tekst);
     void sprawdzKoniecGry();
 
 private slots:

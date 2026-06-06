@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Podłączamy przycisk Końca Tury
     connect(ui->endTurnButton, &QPushButton::clicked, this, &MainWindow::zakonczTure);
 
-    dodajKomunikat("Walka z Mrocznym Władcą!\nTwoja tura.");
+    dodajKomunikatGracza("Walka z Mrocznym Władcą!\nTwoja tura.");
 }
 MainWindow::~MainWindow()
 {
@@ -173,19 +173,28 @@ void MainWindow::zagrajWybranaKarte()
 
 void MainWindow::zakonczTure()
 {
-    dodajKomunikat("Koniec Twojej tury. Atakuje Boss!");
+    // Losowanie ataku (1-3)
+    int typAtaku = QRandomGenerator::global()->bounded(1, 4);
 
-    // Boss wykonuje atak, a Twój gracz dostaje obrażenia (pancerz zredukuje je automatycznie)
-    int obrazeniaOdBossa = bossRaidu->wykonajAtak();
+    // Boss atakuje
+    int obrazeniaOdBossa = bossRaidu->wykonajAtak(typAtaku);
     aktualnyGracz->otrzymajObrazenia(obrazeniaOdBossa);
-
-    // Odnawiamy Twoje Punkty Akcji
     aktualnyGracz->resetujPA();
 
-    // Rycerzyk raportuje, ile oberwaliśmy
-    dodajKomunikat("Boss zadaje " + QString::number(obrazeniaOdBossa) + " obrażeń!\nTwoja tura.");
+    // Rozdzielamy dialogi do dwóch Labeli!
+    if (typAtaku == 1) {
+        dodajKomunikatBossa("\"Giń, śmiertelniku!\"");
+        dodajKomunikatGracza("Rycerz: Boss wykonuje zwykłe cięcie! (-" + QString::number(obrazeniaOdBossa) + " HP)");
+    }
+    else if (typAtaku == 2) {
+        dodajKomunikatBossa("\"Aaa wy sku***! Oberwiecie za to!\"");
+        dodajKomunikatGracza("Rycerz: Uważaj! Boss ładuje potężne uderzenie! (-" + QString::number(obrazeniaOdBossa) + " HP)");
+    }
+    else if (typAtaku == 3) {
+        dodajKomunikatBossa("\"Mrok mnie chroni!\"");
+        dodajKomunikatGracza("Rycerz: Boss odnawia barierę! (+15 Pancerza)");
+    }
 
-    // Aktualizujemy wszystko na ekranie
     aktualizujInterfejs();
     sprawdzKoniecGry();
 }
@@ -196,7 +205,7 @@ void MainWindow::aktualizujInterfejs()
     ui->bossHpBar->setValue(bossRaidu->getHp());
 
     // Wyświetlanie aktualnego pancerza Bossa
-        ui->labelBossPancerz->setText(QString::number(bossRaidu->getPancerz()));
+        ui->bossArmorText->setText(QString::number(bossRaidu->getPancerz()));
 
     // Twoje statystyki (podpięte pod Twoje nowe labele)
     ui->apText->setText(QString::number(aktualnyGracz->getPA()));
@@ -204,24 +213,29 @@ void MainWindow::aktualizujInterfejs()
     ui->armorText->setText(QString::number(aktualnyGracz->getPancerz()));
 }
 
-void MainWindow::dodajKomunikat(const QString &tekst)
+void MainWindow::dodajKomunikatGracza(const QString &tekst)
 {
     ui->labelKomunikaty->setText(tekst);
+}
+
+void MainWindow::dodajKomunikatBossa(const QString &tekst)
+{
+    ui->bossText->setText(tekst);
 }
 
 void MainWindow::sprawdzKoniecGry()
 {
     if (bossRaidu->getHp() <= 0) {
-        dodajKomunikat("ZWYCIĘSTWO!\nMroczny Władca został pokonany!");
+        dodajKomunikatBossa("\"NIEEE! Jak to możliwe...\"");
+        dodajKomunikatGracza("ZWYCIĘSTWO!\nMroczny Władca został pokonany!");
 
-        // Blokujemy przyciski
         ui->btnZagraj->setEnabled(false);
         ui->endTurnButton->setEnabled(false);
     }
     else if (aktualnyGracz->getHp() <= 0) {
-        dodajKomunikat("GAME OVER!\nPoległeś w nierównej walce...");
+        dodajKomunikatBossa("\"Hahaha! Żałosny robak!\"");
+        dodajKomunikatGracza("GAME OVER!\nPoległeś w nierównej walce...");
 
-        // Blokujemy przyciski
         ui->btnZagraj->setEnabled(false);
         ui->endTurnButton->setEnabled(false);
     }
