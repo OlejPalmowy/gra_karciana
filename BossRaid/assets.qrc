@@ -13,5 +13,8 @@
         <file>assets/avatar.png</file>
         <file>assets/miecze.png</file>
         <file>assets/przycisk.png</file>
+        <file>assets/serceBoss.png</file>
+        <file>assets/tarczaBoss.png</file>
+        <file>assets/avatarBoss.png</file>
     </qresource>
 </RCC>
