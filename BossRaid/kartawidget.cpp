@@ -55,10 +55,18 @@ void KartaWidget::oznaczJakoWybrana(bool status)
     }
 }
 
-void KartaWidget::ustawStatystyki(int obrazenia, int kosztPA)
+void KartaWidget::ustawStatystyki(int obrazenia, int kosztPA, const QString &opis)
 {
-    // Zamieniamy liczby (int) na tekst (QString), żeby Label mógł je wyświetlić
-    // Upewnij się, że nazwy "labelAtak" i "labelHP" zgadzają się z tymi w Qt Designerze!
+    // Ciemniejszy, głęboki czerwony dla ataku
     ui->labelAtak->setText(QString::number(obrazenia));
+    ui->labelAtak->setStyleSheet("color: #A30000; font-weight: bold; font-size: 14px;");
+
+    // Ciemniejszy, stonowany niebieski dla punktów akcji
     ui->labelPa->setText(QString::number(kosztPA));
+    ui->labelPa->setStyleSheet("color: #0055B3; font-weight: bold; font-size: 14px;");
+
+    // Tekstowy opis na dole karty
+    ui->labelOpis->setText(opis);
+    ui->labelOpis->setStyleSheet("color: white; font-size: 10px;");
+    ui->labelOpis->setWordWrap(true); // Wymuszamy zawijanie tekstu, żeby nie wychodził za ramkę
 }

@@ -27,26 +27,38 @@ public:
 
     int wykonajAtak(int typAtaku) {
         aktualizujFaze();
+
         int dmg = 0;
 
-        if (wlasnieWszedlWFaze2) {
-            dodajPancerz(30);
-            wlasnieWszedlWFaze2 = false;
+        // BAZOWE WARTOŚCI DLA FAZY 1
+        if (faza == 1) {
+            if (typAtaku == 1) {
+                dmg = 10; // Zwykły cios w 1. fazie
+            }
+            else if (typAtaku == 2) {
+                dmg = 18; // Silny cios w 1. fazie (zamiast 25!)
+            }
+            else if (typAtaku == 3) {
+                dodajPancerz(15);
+                    hp += 15;
+                    if (hp > maxHp) hp = maxHp;
+                    dmg = 0;
+            }
         }
-
-        if (typAtaku == 1) {
-            dmg = 15;
-        }
-        else if (typAtaku == 2) {
-            dmg = 25;
-        }
-        else if (typAtaku == 3) {
-            dodajPancerz(15);
-            dmg = 0;
-        }
-
-        if (faza == 2) {
-            dmg *= 2;
+        // WZMOCNIONE WARTOŚCI DLA FAZY 2 (FURIA)
+        else if (faza == 2) {
+            if (typAtaku == 1) {
+                dmg = 18; // Wściekły zwykły cios
+            }
+            else if (typAtaku == 2) {
+                dmg = 34; // Wściekły potężny cios (Twój idealny balans)
+            }
+            else if (typAtaku == 3) {
+                dodajPancerz(15);
+                hp += 15;
+                if (hp > maxHp) hp = maxHp;
+                dmg = 0;
+            }
         }
 
         return dmg;
