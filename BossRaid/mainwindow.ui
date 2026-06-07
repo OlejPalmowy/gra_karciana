@@ -418,7 +418,7 @@
            <item>
             <widget class="QLabel" name="deckText">
              <property name="text">
-              <string>Deck:</string>
+              <string>Rerol kart ( -2 PA)</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignmentFlag::AlignCenter</set>

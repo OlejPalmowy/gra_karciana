@@ -9,14 +9,16 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+# DODANE: Dopisałem słowo "Test" na końcu obu linijek, żeby projekt załadował moduł testowy Qt
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Test)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Test)
 
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
+        testy.cpp   # DODANE: Plik z testami wpisany do głównych plików projektu
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -48,7 +50,8 @@ else()
     endif()
 endif()
 
-target_link_libraries(BossRaid PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+# DODANE: Dopisałem Qt${QT_VERSION_MAJOR}::Test na końcu, żeby podpiąć bibliotekę testową do kodu
+target_link_libraries(BossRaid PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

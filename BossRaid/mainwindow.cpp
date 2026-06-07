@@ -273,7 +273,7 @@ void MainWindow::aktualizujInterfejs()
     ui->armorText->setText(QString::number(aktualnyGracz->getPancerz()));
     ui->bossHpText->setStyleSheet("color: #A30000; font-weight: bold;");
     ui->hpText->setStyleSheet("color: #FF2E2E; font-weight: bold;");
-    ui->apText->setStyleSheet("color: #0055B3; font-weight: bold;");
+    ui->apText->setStyleSheet("color: #2EB1FF; font-weight: bold;");
 
 }
 

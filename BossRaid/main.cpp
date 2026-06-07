@@ -1,11 +1,19 @@
 #include "mainwindow.h"
-
 #include <QApplication>
+
+extern int uruchomTestyLogiki();
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    // ODPALENIE TESTÓW JEDNOSTKOWYCH
+    qDebug() << "=== URUCHAMIANIE TESTÓW JEDNOSTKOWYCH ===";
+    uruchomTestyLogiki();
+    qDebug() << "=========================================\n";
+
+    // URUCHOMIENIE WŁAŚCIWEJ GRY
     MainWindow w;
     w.show();
-    return QCoreApplication::exec();
+    return a.exec();
 }
