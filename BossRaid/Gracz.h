@@ -10,12 +10,19 @@ private:
     int punktyAkcji;
     int maxPunktyAkcji;
     std::vector<Karta> reka;
-    int bonusPA = 0; // Dodano zmienną do bonusu z Łucznika
+    int bonusPA = 0;
 
 public:
     Gracz(std::string n, int startHp, int startPA) : Postac(n, startHp) {
         maxPunktyAkcji = startPA;
         punktyAkcji = startPA;
+    }
+
+    /**
+     * @brief POLIMORFIZM: Implementacja funkcji wirtualnej z klasy Postac.
+     */
+    void przygotujDoTury() override {
+        // Pusta implementacja spełniająca wymóg polimorfizmu
     }
 
     void usunKarteZReki(int indeks) {
@@ -24,15 +31,17 @@ public:
         }
     }
 
-    // Funkcja do leczenia
+    /**
+     * @brief Leczy gracza, nie przekraczając maksymalnego HP.
+     * @param wartosc Ilość punktów życia do przywrócenia.
+     */
     void ulecz(int wartosc) {
         hp += wartosc;
         if (hp > maxHp) {
-            hp = maxHp; // Zabezpieczenie, żeby nie przekroczyć Max HP
+            hp = maxHp;
         }
     }
 
-    // Funkcja do Rerolla
     void wyczyscReke() {
         reka.clear();
     }
@@ -45,11 +54,15 @@ public:
     }
 
     void odnowPA() {
-        // Dodajemy stałą wartość (np. 3) + to, co wypracował Łucznik
         punktyAkcji += (9 + bonusPA);
-        bonusPA = 0; // Zerujemy bonus
+        bonusPA = 0;
     }
 
+    /**
+     * @brief Próbuje zużyć punkty akcji gracza.
+     * @param koszt Ilość punktów akcji potrzebna do wykonania czynności.
+     * @return true jeśli gracz miał wystarczająco PA, w przeciwnym razie false.
+     */
     bool zuzyjPA(int koszt) {
         if (punktyAkcji >= koszt) {
             punktyAkcji -= koszt;
