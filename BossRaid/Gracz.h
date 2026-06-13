@@ -2,29 +2,47 @@
 #define GRACZ_H
 
 #include "Postac.h"
-#include "Karta.h"
 #include <vector>
+#include <memory>
 
+class Karta; // Forward declaration dla uniknięcia pętli nagłówków
+
+/**
+ * @brief Klasa reprezentująca głównego bohatera (Gracza).
+ * Dziedziczy po klasie bazowej Postac.
+ */
 class Gracz : public Postac {
 private:
-    int punktyAkcji;
-    int maxPunktyAkcji;
-    std::vector<Karta> reka;
-    int bonusPA = 0;
+    int punktyAkcji;            ///< Obecne punkty akcji (PA) gracza
+    int maxPunktyAkcji;         ///< Maksymalne punkty akcji
+    std::vector<std::shared_ptr<Karta>> reka; ///< Zbiór kart na ręce zarządzany przez inteligentne wskaźniki
+    int bonusPA = 0;            ///< Premia do PA w następnej turze
 
 public:
+    /**
+     * @brief Konstruktor obiektu gracza.
+     * @param n Nazwa gracza.
+     * @param startHp Początkowe (i maksymalne) zdrowie.
+     * @param startPA Początkowe punkty akcji.
+     */
     Gracz(std::string n, int startHp, int startPA) : Postac(n, startHp) {
         maxPunktyAkcji = startPA;
         punktyAkcji = startPA;
     }
 
     /**
-     * @brief POLIMORFIZM: Implementacja funkcji wirtualnej z klasy Postac.
+     * @brief Implementacja wirtualnej metody - nadaje abstrakcji realny sens.
+     * Gracz przygotowując się do tury, odnawia swoje punkty akcji.
      */
     void przygotujDoTury() override {
-        // Pusta implementacja spełniająca wymóg polimorfizmu
+        punktyAkcji += (9 + bonusPA);
+        bonusPA = 0;
     }
 
+    /**
+     * @brief Usuwa kartę z ręki na podstawie indeksu.
+     * @param indeks Indeks karty do usunięcia.
+     */
     void usunKarteZReki(int indeks) {
         if (indeks >= 0 && indeks < reka.size()) {
             reka.erase(reka.begin() + indeks);
@@ -32,8 +50,8 @@ public:
     }
 
     /**
-     * @brief Leczy gracza, nie przekraczając maksymalnego HP.
-     * @param wartosc Ilość punktów życia do przywrócenia.
+     * @brief Leczy gracza, pamiętając o limitach maksymalnego HP.
+     * @param wartosc Ilość punktów do wyleczenia.
      */
     void ulecz(int wartosc) {
         hp += wartosc;
@@ -42,26 +60,29 @@ public:
         }
     }
 
+    /** @brief Czyści całkowicie rękę gracza z kart. */
     void wyczyscReke() {
         reka.clear();
     }
 
+    /** @brief Zwraca ilość punktów akcji. @return Obecne punkty PA. */
     int getPA() const { return punktyAkcji; }
-    std::vector<Karta> getReka() const { return reka; }
 
+    /** @brief Zwraca wektor kart w ręce. @return Ręka gracza. */
+    std::vector<std::shared_ptr<Karta>> getReka() const { return reka; }
+
+    /**
+     * @brief Dodaje wartość do bonusu punktów akcji.
+     * @param wartosc Wartość bonusu.
+     */
     void dodajBonusPA(int wartosc) {
         bonusPA += wartosc;
     }
 
-    void odnowPA() {
-        punktyAkcji += (9 + bonusPA);
-        bonusPA = 0;
-    }
-
     /**
-     * @brief Próbuje zużyć punkty akcji gracza.
-     * @param koszt Ilość punktów akcji potrzebna do wykonania czynności.
-     * @return true jeśli gracz miał wystarczająco PA, w przeciwnym razie false.
+     * @brief Zmniejsza ilość PA o określony koszt (jeśli to możliwe).
+     * @param koszt Koszt zagrania.
+     * @return true, jeśli odjęto PA, false jeśli gracz ma ich za mało.
      */
     bool zuzyjPA(int koszt) {
         if (punktyAkcji >= koszt) {
@@ -71,7 +92,11 @@ public:
         return false;
     }
 
-    void dodajKarteDoReki(Karta k) {
+    /**
+     * @brief Dodaje nową kartę do ręki.
+     * @param k Inteligentny wskaźnik na dodawaną kartę.
+     */
+    void dodajKarteDoReki(std::shared_ptr<Karta> k) {
         reka.push_back(k);
     }
 };

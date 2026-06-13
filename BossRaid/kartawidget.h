@@ -17,53 +17,56 @@ class KartaWidget : public QWidget
 protected:
     /**
      * @brief Obsługa zdarzenia kliknięcia myszą w kartę.
-     * @param event Wskaźnik na obiekt zdarzenia systemowego.
+     * @param event Wskaźnik na obiekt zdarzenia.
      */
     void mousePressEvent(QMouseEvent *event) override;
 
 public:
     /**
-     * @brief Konstruktor widżetu karty.
-     * @param parent Wskaźnik na widżet nadrzędny (domyślnie nullptr).
+     * @brief Konstruktor widżetu.
+     * @param parent Wskaźnik na rodzica.
      */
     explicit KartaWidget(QWidget *parent = nullptr);
 
-    /**
-     * @brief Destruktor widżetu karty.
-     */
+    /** @brief Destruktor zwalniający ui. */
     ~KartaWidget();
 
     /**
-     * @brief Ustawia grafikę tła dla karty na podstawie pliku.
-     * @param sciezkaDoFoto Ścieżka dostępu do pliku z grafiką.
+     * @brief Ładuje grafikę z zasobów.
+     * @param sciezkaDoFoto Relatywna ścieżka qrc.
      */
     void ustawGrafike(const QString &sciezkaDoFoto);
 
     /**
-     * @brief Zmienia wizualny stan karty (np. podnosi ją do góry, gdy jest wybrana).
-     * @param status True jeśli karta ma zostać oznaczona jako wybrana, false w przeciwnym razie.
+     * @brief Zmienia stan wizualny (podniesienie).
+     * @param status Stan bycia zaznaczonym.
      */
     void oznaczJakoWybrana(bool status);
 
-    bool czyWybrana = false; ///< Flaga określająca, czy gracz zaznaczył tę kartę do zagrania.
+    /**
+     * @brief Getter sprawdzający status zaznaczenia (Enkapsulacja).
+     * @return True jeśli podświetlona.
+     */
+    bool getCzyWybrana() const { return czyWybrana; }
 
     /**
-     * @brief Ustawia statystyki wyświetlane bezpośrednio na karcie.
-     * @param obrazenia Wartość zadawanych obrażeń.
-     * @param kosztPA Koszt zagrania w Punktach Akcji.
-     * @param opis Tekstowy opis specjalnych właściwości karty.
+     * @brief Renderuje bazowe statystyki na widget-cie UI.
+     * @param obrazenia Obrażenia na kartę.
+     * @param kosztPA Wartość kosztu PA.
+     * @param opis Własny opis tekstu na labelu.
      */
     void ustawStatystyki(int obrazenia, int kosztPA, const QString &opis);
 
 signals:
     /**
-     * @brief Sygnał emitowany natychmiast po kliknięciu w kartę przez gracza.
-     * @param kliknietaKarta Wskaźnik na kliknięty obiekt KartaWidget.
+     * @brief Emituje sygnał natychmiastowo po detekcji zdarzenia `mousePress`.
+     * @param kliknietaKarta Wskaźnik this.
      */
     void kartaKliknieta(KartaWidget* kliknietaKarta);
 
 private:
-    Ui::KartaWidget *ui;
+    Ui::KartaWidget *ui;            ///< Interfejs UI.
+    bool czyWybrana = false;        ///< Prywatna flaga określająca stan logiczny karty.
 };
 
 #endif // KARTAWIDGET_H

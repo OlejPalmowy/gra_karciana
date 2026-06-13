@@ -9,16 +9,16 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# DODANE: Dopisałem słowo "Test" na końcu obu linijek, żeby projekt załadował moduł testowy Qt
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Test)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Test)
+# POPRAWIONE: Dopisany moduł Multimedia na końcu obu linijek
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Test Multimedia)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Test Multimedia)
 
 set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
-        testy.cpp   # DODANE: Plik z testami wpisany do głównych plików projektu
+        testy.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -32,17 +32,11 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         assets.qrc
         kartawidget.h kartawidget.cpp kartawidget.ui
     )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET BossRaid APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 else()
     if(ANDROID)
         add_library(BossRaid SHARED
             ${PROJECT_SOURCES}
         )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     else()
         add_executable(BossRaid
             ${PROJECT_SOURCES}
@@ -50,12 +44,9 @@ else()
     endif()
 endif()
 
-# DODANE: Dopisałem Qt${QT_VERSION_MAJOR}::Test na końcu, żeby podpiąć bibliotekę testową do kodu
-target_link_libraries(BossRaid PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test)
+# POPRAWIONE: Dodane powiązanie biblioteki dźwiękowej Qt${QT_VERSION_MAJOR}::Multimedia na końcu
+target_link_libraries(BossRaid PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Test Qt${QT_VERSION_MAJOR}::Multimedia)
 
-# Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
-# If you are developing for iOS or macOS you should consider setting an
-# explicit, fixed bundle identifier manually though.
 if(${QT_VERSION} VERSION_LESS 6.1.0)
   set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.BossRaid)
 endif()

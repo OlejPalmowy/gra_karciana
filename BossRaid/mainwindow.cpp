@@ -1,34 +1,46 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "Karta.h"
 #include <QRandomGenerator>
+#include <QTimer> // Biblioteka do obsługi opóźnień czasowych (serii dźwięków)
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     ui->labelKomunikaty->setWordWrap(true);
     ui->bossText->setWordWrap(true);
 
-    aktualnyGracz = new Gracz("Bohater", 30, 12);
-    bossRaidu = new Boss("Mroczny Władca", 100);
-    bossRaidu->dodajPancerz(30);
+    aktualnyGracz = std::make_unique<Gracz>("Bohater", 30, 12);
+    bossRaidu = std::make_unique<Boss>("Mroczny Władca", 100);
 
-    // ustawienie max hp paska bossa
+    bossRaidu->dodajPancerz(30);
     ui->bossHpBar->setMaximum(bossRaidu->getMaxHp());
 
-    for(int i = 0; i < 4; i++) {
-        dodajLosowaKarte();
-    }
+    // --- INICJALIZACJA DŹWIĘKÓW (Z POJEDYNCZYM .wav) ---
+    sfxMiecz = new QSoundEffect(this);
+    sfxMiecz->setSource(QUrl("qrc:/assets/miecz.wav"));
 
-    for(int i = 0; i < 5; i++) {
-        dodajLosowaKarte();
-    }
+    sfxStrzala = new QSoundEffect(this);
+    sfxStrzala->setSource(QUrl("qrc:/assets/strzala.wav"));
+
+    sfxMagia = new QSoundEffect(this);
+    sfxMagia->setSource(QUrl("qrc:/assets/magia.wav"));
+
+    sfxDriada = new QSoundEffect(this);
+    sfxDriada->setSource(QUrl("qrc:/assets/driada.wav")); // DODANE: Ścieżka do dźwięku Driady
+
+    sfxWygrana = new QSoundEffect(this);
+    sfxWygrana->setSource(QUrl("qrc:/assets/wygrana.wav"));
+
+    sfxPrzegrana = new QSoundEffect(this);
+    sfxPrzegrana->setSource(QUrl("qrc:/assets/przegrana.wav"));
+
+    for(int i = 0; i < 4; i++) dodajLosowaKarte();
 
     aktualizujInterfejs();
 
-    // podpiecie przyciskow
     connect(ui->btnZagraj, &QPushButton::clicked, this, &MainWindow::zagrajWybranaKarte);
     connect(ui->endTurnButton, &QPushButton::clicked, this, &MainWindow::zakonczTure);
     connect(ui->btnReroll, &QPushButton::clicked, this, &MainWindow::przerolujKarty);
@@ -47,52 +59,40 @@ void MainWindow::dodajLosowaKarte()
 
     QString sciezkaGrafiki;
     QString opisKarty;
-    Karta nowaKarta("", 0, 0, 0, 0, 0);
+    std::shared_ptr<Karta> nowaKarta;
 
-    // losowanie szansy (0-99)
     int szansa = QRandomGenerator::global()->bounded(100);
     int losowyIndeks = 0;
 
-    // szansa na uzdrowicielke
-    if (szansa < 8) {
-        losowyIndeks = 3;
-    } else {
-        // losowanie reszty kart (rycerz, lucznik, mag)
-        losowyIndeks = QRandomGenerator::global()->bounded(3);
-    }
+    if (szansa < 8) losowyIndeks = 3;
+    else losowyIndeks = QRandomGenerator::global()->bounded(3);
 
-    // przypisanie statystyk
     if (losowyIndeks == 0) {
-        nowaKarta = Karta("Rycerz", 1, 3, 9, 0, 3);
+        nowaKarta = std::make_shared<KartaRycerz>();
         sciezkaGrafiki = ":/assets/karta_rycerz.png";
         opisKarty = "Zadaje 9 pancerza LUB 3 HP (gdy brak tarczy). Daje +5 pancerza graczowi.";
     }
     else if (losowyIndeks == 1) {
-        nowaKarta = Karta("Łucznik", 2, 4, 3, 0, 1);
+        nowaKarta = std::make_shared<KartaLucznik>();
         sciezkaGrafiki = ":/assets/karta_lucznik.png";
         opisKarty = "Zadaje 3 pancerza LUB 4 HP (gdy brak tarczy).";
     }
     else if (losowyIndeks == 2) {
-        nowaKarta = Karta("Mag", 3, 15, 3, 0, 3);
+        nowaKarta = std::make_shared<KartaMag>();
         sciezkaGrafiki = ":/assets/karta_czarodziej.png";
         opisKarty = "Całkowicie omija pancerz i bije prosto w zdrowie bossa.";
     }
     else if (losowyIndeks == 3) {
-        // uzdrowicielka
-        nowaKarta = Karta("Driada", 4, 0, 0, 0, 0);
+        nowaKarta = std::make_shared<KartaDriada>();
         sciezkaGrafiki = ":/assets/karta_driada.png";
         opisKarty = "Mityczna driada. Uzdrawia gracza z odniesionych ran (+10 HP).";
     }
 
-    // dodanie karty do logiki
     aktualnyGracz->dodajKarteDoReki(nowaKarta);
 
-    // tworzenie widgetu
     KartaWidget *nowyWidget = new KartaWidget(this);
     nowyWidget->ustawGrafike(sciezkaGrafiki);
-
-    // ustawienie tekstow
-    nowyWidget->ustawStatystyki(nowaKarta.getObrazeniaHP(), nowaKarta.getKosztPA(), opisKarty);
+    nowyWidget->ustawStatystyki(nowaKarta->getObrazeniaHP(), nowaKarta->getKosztPA(), opisKarty);
 
     connect(nowyWidget, &KartaWidget::kartaKliknieta, this, &MainWindow::onKartaKliknieta);
     ui->handLayout->addWidget(nowyWidget);
@@ -101,8 +101,7 @@ void MainWindow::dodajLosowaKarte()
 
 void MainWindow::onKartaKliknieta(KartaWidget* kliknietaKarta)
 {
-    // zaznaczanie/odznaczanie karty
-    kliknietaKarta->oznaczJakoWybrana(!kliknietaKarta->czyWybrana);
+    kliknietaKarta->oznaczJakoWybrana(!kliknietaKarta->getCzyWybrana());
 }
 
 void MainWindow::zagrajWybranaKarte()
@@ -110,102 +109,74 @@ void MainWindow::zagrajWybranaKarte()
     std::vector<int> indeksyDoUsuniecia;
     int sumaKosztuPA = 0;
 
-    // szukanie od tylu zeby nie zepsuc indeksow
     for(int i = widgetyWRece.size() - 1; i >= 0; i--) {
-        if (widgetyWRece[i]->czyWybrana) {
+        if (widgetyWRece[i]->getCzyWybrana()) {
             indeksyDoUsuniecia.push_back(i);
-            sumaKosztuPA += aktualnyGracz->getReka()[i].getKosztPA();
+            sumaKosztuPA += aktualnyGracz->getReka()[i]->getKosztPA();
         }
     }
 
-    // blokady
-    if (indeksyDoUsuniecia.empty()) return;
-    if (indeksyDoUsuniecia.size() > 3) return;
+    if (indeksyDoUsuniecia.empty() || indeksyDoUsuniecia.size() > 3) return;
 
-    // sprawdzanie pa
     if (aktualnyGracz->zuzyjPA(sumaKosztuPA)) {
 
-        std::vector<Karta> reka = aktualnyGracz->getReka();
+        std::vector<std::shared_ptr<Karta>> reka = aktualnyGracz->getReka();
 
-        // ataki
+        // Pętla wykonująca ataki kart (odpalana od tyłu)
         for (int i = indeksyDoUsuniecia.size() - 1; i >= 0; i--) {
             int idx = indeksyDoUsuniecia[i];
-            Karta karta = reka[idx];
+            std::shared_ptr<Karta> karta = reka[idx];
 
-            int typ = karta.getTyp();
-            int dmgHP = karta.getObrazeniaHP();
-            int dmgArmor = karta.getObrazeniaPancerz();
-            int pancerzBossa = bossRaidu->getPancerz();
+            // 1. Logika walki (wykonuje się natychmiast)
+            QString odpKarty = karta->zagraj(bossRaidu.get(), aktualnyGracz.get());
 
-            if (typ == 1) { // RYCERZ
-                int pancerzBossa = bossRaidu->getPancerz();
-                if (pancerzBossa > 0) {
-                    // bije w tarcze
-                    if (pancerzBossa >= dmgArmor) {
-                        bossRaidu->otrzymajObrazenia(dmgArmor);
-                    } else {
-                        // zeruje pancerz
-                        bossRaidu->otrzymajObrazenia(pancerzBossa);
-                    }
-                } else {
-                    // bije w hp
-                    bossRaidu->otrzymajObrazenia(dmgHP);
+            // 2. Obliczanie przerw czasowych - ZWIĘKSZONO MNOŻNIK Z 200 NA 400 dla większego odstępu
+            int opoznienie = (indeksyDoUsuniecia.size() - 1 - i) * 400;
+            int typKarty = karta->getTyp();
+
+            // 3. Budzik odtwarzający dźwięk po określonym czasie z trikiem Windowsa
+            QTimer::singleShot(opoznienie, this, [this, typKarty]() {
+                if (typKarty == 1) {
+                    sfxMiecz->setSource(sfxMiecz->source());
+                    sfxMiecz->play();
                 }
-                aktualnyGracz->dodajPancerz(5);
-            }
-            else if (typ == 2) { // ŁUCZNIK
-                int pancerzBossa = bossRaidu->getPancerz();
-                if (pancerzBossa > 0) {
-                    if (pancerzBossa >= dmgArmor) {
-                        bossRaidu->otrzymajObrazenia(dmgArmor);
-                    } else {
-                        bossRaidu->otrzymajObrazenia(pancerzBossa);
-                    }
-                } else {
-                    bossRaidu->otrzymajObrazenia(dmgHP);
+                else if (typKarty == 2) {
+                    sfxStrzala->setSource(sfxStrzala->source());
+                    sfxStrzala->play();
                 }
-            }
-            else if (typ == 3) { // MAG
-                bossRaidu->resetujPancerz();
-                bossRaidu->otrzymajObrazenia(dmgHP);
-                bossRaidu->dodajPancerz(pancerzBossa);
-            }
-            else if (typ == 4) { // UZDROWICIELKA
-                aktualnyGracz->ulecz(10);
-                dodajKomunikatGracza("Uzdrowicielka leczy Twoje rany! (+10 HP)");
+                else if (typKarty == 3) {
+                    sfxMagia->setSource(sfxMagia->source());
+                    sfxMagia->play();
+                }
+                else if (typKarty == 4) { // POPRAWIONE: Dodana obsługa dźwięku dla Driady
+                    sfxDriada->setSource(sfxDriada->source());
+                    sfxDriada->play();
+                }
+            });
+
+            if (!odpKarty.isEmpty()) {
+                dodajKomunikatGracza(odpKarty);
             }
         }
 
-        // usuwanie zagranych kart
         for (size_t i = 0; i < indeksyDoUsuniecia.size(); i++) {
             int idx = indeksyDoUsuniecia[i];
-
-            // usuwanie z reki
             aktualnyGracz->usunKarteZReki(idx);
-
-            // usuwanie widgetu z ekranu
             KartaWidget* kw = widgetyWRece[idx];
             ui->handLayout->removeWidget(kw);
             kw->hide();
             kw->deleteLater();
-
-            // wyrzucenie z listy
             widgetyWRece.erase(widgetyWRece.begin() + idx);
         }
 
-        // dobieranie nowych kart
-        for (size_t i = 0; i < indeksyDoUsuniecia.size(); i++) {
-            dodajLosowaKarte();
-        }
+        for (size_t i = 0; i < indeksyDoUsuniecia.size(); i++) dodajLosowaKarte();
 
-        // sprawdzenie furii
         if (bossRaidu->getFaza() == 1 && bossRaidu->getHp() <= (bossRaidu->getMaxHp() / 2)) {
             bossRaidu->aktualizujFaze();
             dodajKomunikatBossa("\"NIE POZWOLĘ SIĘ POKONAĆ, NĘDZNY ROBAKU!!!\"");
             dodajKomunikatGracza("Uważaj! Boss wpada w furię! Zyskał +15 pancerza i bije teraz podwójnie!");
         }
 
-        // update ui
         aktualizujInterfejs();
         sprawdzKoniecGry();
     }
@@ -218,12 +189,11 @@ void MainWindow::zakonczTure()
     int obrazeniaOdBossa = bossRaidu->wykonajAtak(typAtaku);
     aktualnyGracz->otrzymajObrazenia(obrazeniaOdBossa);
 
-    aktualnyGracz->odnowPA();
+    aktualnyGracz->przygotujDoTury();
+    bossRaidu->przygotujDoTury();
 
-    // czy boss ma furie
     bool czyFuria = (bossRaidu->getFaza() == 2);
-
-    if (typAtaku == 1) { // zwykly atak
+    if (typAtaku == 1) {
         if (czyFuria) {
             dodajKomunikatBossa("\"ZGINIECIE W MĘCZARNIACH!!!\"");
             dodajKomunikatGracza("Rycerz: Uważaj! Wściekły boss wyprowadza szybkie cięcie! (-" + QString::number(obrazeniaOdBossa) + " HP)");
@@ -232,7 +202,7 @@ void MainWindow::zakonczTure()
             dodajKomunikatGracza("Rycerz: Boss wykonuje zwykłe cięcie. (-" + QString::number(obrazeniaOdBossa) + " HP)");
         }
     }
-    else if (typAtaku == 2) { // silny atak
+    else if (typAtaku == 2) {
         if (czyFuria) {
             dodajKomunikatBossa("\"POCZUJCIE MOJĄ PRAWDZIWĄ POTĘGĘ!!!\"");
             dodajKomunikatGracza("Rycerz: KRYTYK! Rozwścieczony demon miażdży nas potężnym uderzeniem! (-" + QString::number(obrazeniaOdBossa) + " HP)");
@@ -241,7 +211,7 @@ void MainWindow::zakonczTure()
             dodajKomunikatGracza("Rycerz: Uważaj! Boss ładuje mocne uderzenie. (-" + QString::number(obrazeniaOdBossa) + " HP)");
         }
     }
-    else if (typAtaku == 3) { // leczenie bossa
+    else if (typAtaku == 3) {
         dodajKomunikatBossa("\"Mrok mnie leczy i chroni!\"");
         dodajKomunikatGracza("Rycerz: Boss odnawia barierę i zasklepia swoje rany! (+15 Pancerza, +15 HP)");
     }
@@ -252,17 +222,14 @@ void MainWindow::zakonczTure()
 
 void MainWindow::aktualizujInterfejs()
 {
-    // update wartosci na ui
     ui->bossHpBar->setValue(bossRaidu->getHp());
     ui->bossArmorText->setText(QString::number(bossRaidu->getPancerz()));
     ui->bossHpText->setText(QString::number(bossRaidu->getHp()) + " / " + QString::number(bossRaidu->getMaxHp()));
 
-    // staty gracza
     ui->apText->setText(QString::number(aktualnyGracz->getPA()));
     ui->hpText->setText(QString::number(aktualnyGracz->getHp()));
     ui->armorText->setText(QString::number(aktualnyGracz->getPancerz()));
 
-    // kolorki
     ui->bossHpText->setStyleSheet("color: #A30000; font-weight: bold;");
     ui->hpText->setStyleSheet("color: #FF2E2E; font-weight: bold;");
     ui->apText->setStyleSheet("color: #2EB1FF; font-weight: bold;");
@@ -281,20 +248,20 @@ void MainWindow::dodajKomunikatBossa(const QString &tekst)
 void MainWindow::sprawdzKoniecGry(int ostatnieObrazenia)
 {
     if (bossRaidu->getHp() <= 0) {
+        sfxWygrana->play(); // Odpalenie fanfar po zwycięstwie
+
         dodajKomunikatBossa("\"NIEEE! Jak to możliwe...\"");
         dodajKomunikatGracza("ZWYCIĘSTWO!\nMroczny Władca został pokonany!");
-
         ui->btnZagraj->setEnabled(false);
         ui->endTurnButton->setEnabled(false);
     }
     else if (aktualnyGracz->getHp() <= 0) {
-        dodajKomunikatBossa("\"Hahaha! Żałosny robak!\"");
+        sfxPrzegrana->play(); // Odpalenie ponurego dźwięku po przegranej
 
-        // info o smierci
+        dodajKomunikatBossa("\"Hahaha! Żałosny robak!\"");
         dodajKomunikatGracza("GAME OVER!\nRycerz: Otrzymaliśmy śmiertelny cios za "
                              + QString::number(ostatnieObrazenia)
                              + " HP... Poległeś w nierównej walce.");
-
         ui->btnZagraj->setEnabled(false);
         ui->endTurnButton->setEnabled(false);
     }
@@ -302,25 +269,15 @@ void MainWindow::sprawdzKoniecGry(int ostatnieObrazenia)
 
 void MainWindow::przerolujKarty()
 {
-    // koszt rerolla = 2 PA
     if (aktualnyGracz->zuzyjPA(2)) {
-
-        // czyszczenie ui z kart
         for (KartaWidget* kw : widgetyWRece) {
             ui->handLayout->removeWidget(kw);
             kw->hide();
             kw->deleteLater();
         }
         widgetyWRece.clear();
-
-        // czyszczenie reki w logice
         aktualnyGracz->wyczyscReke();
-
-        // dobieranie 4 kart
-        for (int i = 0; i < 4; i++) {
-            dodajLosowaKarte();
-        }
-
+        for (int i = 0; i < 4; i++) dodajLosowaKarte();
         aktualizujInterfejs();
         dodajKomunikatGracza("Wymieniłeś wszystkie karty! (-2 PA)");
     } else {
