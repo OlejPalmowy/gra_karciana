@@ -16,5 +16,11 @@
         <file>assets/serceBoss.png</file>
         <file>assets/tarczaBoss.png</file>
         <file>assets/avatarBoss.png</file>
+        <file>assets/magia.wav</file>
+        <file>assets/miecz.wav</file>
+        <file>assets/przegrana.wav</file>
+        <file>assets/strzala.wav</file>
+        <file>assets/wygrana.wav</file>
+        <file>assets/driada.wav</file>
     </qresource>
 </RCC>

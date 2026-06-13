@@ -1,8 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "kartawidget.h"
 #include <QMainWindow>
+#include <memory>
+#include <vector>
+#include <QSoundEffect> // Biblioteka do obsługi efektów dźwiękowych
+#include "kartawidget.h"
 #include "Gracz.h"
 #include "Boss.h"
 
@@ -11,7 +14,7 @@ namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 /**
- * @brief Klasa reprezentująca główne okno aplikacji oraz zarządzająca pętlą logiki gry.
+ * @brief Klasa głównego okna programu. Obsługuje zdarzenia i instancjuje grę.
  */
 class MainWindow : public QMainWindow
 {
@@ -19,70 +22,54 @@ class MainWindow : public QMainWindow
 
 public:
     /**
-     * @brief Konstruktor głównego okna gry. Inicjalizuje interfejs i logikę postaci.
-     * @param parent Wskaźnik na nadrzędny widżet (domyślnie nullptr).
+     * @brief Konstruktor głównego obiektu.
+     * @param parent Rodzic w hierarchii okienek Qt.
      */
     explicit MainWindow(QWidget *parent = nullptr);
 
-    /**
-     * @brief Destruktor okna. Zwalnia zasoby interfejsu użytkownika.
-     */
+    /** @brief Destruktor widoku głównego. */
     ~MainWindow() override;
 
 private:
-    Ui::MainWindow *ui;
-    Gracz *aktualnyGracz; ///< Wskaźnik na obiekt reprezentujący gracza.
-    Boss *bossRaidu;      ///< Wskaźnik na obiekt reprezentujący przeciwnika (bossa).
-    std::vector<KartaWidget*> widgetyWRece; ///< Wektor przechowujący wizualne reprezentacje kart na ręce gracza.
+    Ui::MainWindow *ui;                                 ///< Pointer na layout Qt
+    std::unique_ptr<Gracz> aktualnyGracz;               ///< Bezpieczny pointer (unique_ptr) na Gracza
+    std::unique_ptr<Boss> bossRaidu;                    ///< Bezpieczny pointer (unique_ptr) na Bossa
+    std::vector<KartaWidget*> widgetyWRece;             ///< Kontener na pointery widgetów z UI
 
-    /**
-     * @brief Losuje nową kartę i dodaje ją zarówno do logiki gracza, jak i do interfejsu graficznego.
-     */
+    // Głośniki do efektów dźwiękowych gry
+    QSoundEffect *sfxMiecz;                             ///< Dźwięk dla karty Rycerza
+    QSoundEffect *sfxStrzala;                           ///< Dźwięk dla karty Łucznika
+    QSoundEffect *sfxMagia;                             ///< Dźwięk dla karty Maga
+    QSoundEffect *sfxDriada;                            ///< DODANE: Dźwięk dla karty Driady
+    QSoundEffect *sfxWygrana;                           ///< Muzyka po pokonaniu Bossa
+    QSoundEffect *sfxPrzegrana;                         ///< Dźwięk po śmierci Gracza
+
+    /** @brief Losuje, tworzy za pomocą polimorfizmu instancję Karty i renderuje do UI. */
     void dodajLosowaKarte();
 
-    /**
-     * @brief Odświeża wszystkie wartości liczbowe (HP, AP, Pancerz) na interfejsie użytkownika.
-     */
+    /** @brief Odświeża warstwę tekstową interfejsu (HP, PA, Pancerz). */
     void aktualizujInterfejs();
 
-    /**
-     * @brief Wyświetla komunikat tekstowy w logu wydarzeń gracza (np. informacje o użyciu karty).
-     * @param tekst Treść komunikatu do wyświetlenia.
-     */
+    /** @brief Pokazuje komunikaty dla bohatera. */
     void dodajKomunikatGracza(const QString &tekst);
 
-    /**
-     * @brief Wyświetla tekst wypowiadany lub akcję wykonywaną przez bossa.
-     * @param tekst Treść komunikatu bossa.
-     */
+    /** @brief Pokazuje teksty bossa z eventów. */
     void dodajKomunikatBossa(const QString &tekst);
 
-    /**
-     * @brief Sprawdza warunki wygranej lub przegranej po każdej akcji i ewentualnie kończy grę.
-     * @param ostatnieObrazenia Wartość obrażeń, które doprowadziły do ewentualnej śmierci postaci (domyślnie 0).
-     */
+    /** @brief Detektor stanów End-Game. */
     void sprawdzKoniecGry(int ostatnieObrazenia = 0);
 
 private slots:
-    /**
-     * @brief Slot reagujący na kliknięcie w konkretną kartę na ekranie (zaznaczenie/odznaczenie).
-     * @param kliknietaKarta Wskaźnik na kliknięty widżet karty.
-     */
+    /** @brief Reakcja na klik w pojedynczą kartę. */
     void onKartaKliknieta(KartaWidget* kliknietaKarta);
 
-    /**
-     * @brief Slot wywoływany przyciskiem "Zagraj". Przetwarza logikę wszystkich zaznaczonych kart.
-     */
+    /** @brief Silnik zagrywania sekwencji wybranych kart. */
     void zagrajWybranaKarte();
 
-    /**
-     * @brief Slot wywoływany przyciskiem końca tury. Inicjuje atak bossa i nową turę gracza.
-     */
+    /** @brief Kończy turę gracza i przerzuca akcję na ataki Bossa. */
     void zakonczTure();
 
-    /**
-     * @brief Slot wymieniający wszystkie karty w ręce gracza za określoną ilość Punktów Akcji.
-     */
+    /** @brief Moduł przetasowania i wylosowania 4 nowych kart. */
     void przerolujKarty();
 };
 
