@@ -1,0 +1,170 @@
+\doxysection{Karta\+Widget Class Reference}
+\hypertarget{class_karta_widget}{}\label{class_karta_widget}\index{KartaWidget@{KartaWidget}}
+
+
+Klasa reprezentująca graficzny interfejs pojedynczej karty na ekranie.  
+
+
+
+
+{\ttfamily \+\#include $<$kartawidget.\+h$>$}
+
+Inheritance diagram for Karta\+Widget:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_karta_widget}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_karta_widget_aaa3840c240fcc963e38be9fc0ea1ab14}{karta\+Kliknieta}} (\doxymbox{\hyperlink{class_karta_widget}{Karta\+Widget}} \texorpdfstring{$\ast$}{*}kliknieta\+Karta)
+\begin{DoxyCompactList}\small\item\em Emituje sygnał natychmiastowo po detekcji zdarzenia {\ttfamily mouse\+Press}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_karta_widget_aa104af8b0ca4c2b73f64433a4cb41135}{Karta\+Widget}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Konstruktor widżetu. \end{DoxyCompactList}\item 
+\Hypertarget{class_karta_widget_afa28e780c2c1ee73f85ca4a97ba88496}\label{class_karta_widget_afa28e780c2c1ee73f85ca4a97ba88496} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Karta\+Widget} ()
+\begin{DoxyCompactList}\small\item\em Destruktor zwalniający ui. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_karta_widget_a9dcef8a441abc029cebe8fc4b9f2627c}{ustaw\+Grafike}} (const QString \&sciezka\+Do\+Foto)
+\begin{DoxyCompactList}\small\item\em Ładuje grafikę z zasobów. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_karta_widget_a694c8a9c4dcd9b55f0a6995525c9e7f6}{oznacz\+Jako\+Wybrana}} (bool status)
+\begin{DoxyCompactList}\small\item\em Zmienia stan wizualny (podniesienie). \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_karta_widget_a71b4c4f4f5e6b7e25f414370bf9722ef}{get\+Czy\+Wybrana}} () const
+\begin{DoxyCompactList}\small\item\em Getter sprawdzający status zaznaczenia (Enkapsulacja). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_karta_widget_a8ddde21399e61e978ffd7b30c459c986}{ustaw\+Statystyki}} (int obrazenia, int koszt\+PA, const QString \&opis)
+\begin{DoxyCompactList}\small\item\em Renderuje bazowe statystyki na widget-\/cie UI. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \doxymbox{\hyperlink{class_karta_widget_a8e638ef515d279905c5ed6ef9f4b1bd1}{mouse\+Press\+Event}} (QMouse\+Event \texorpdfstring{$\ast$}{*}event) override
+\begin{DoxyCompactList}\small\item\em Obsługa zdarzenia kliknięcia myszą w kartę. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Klasa reprezentująca graficzny interfejs pojedynczej karty na ekranie. 
+
+\label{class_karta_widget_doc-constructors}
+\Hypertarget{class_karta_widget_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_karta_widget_aa104af8b0ca4c2b73f64433a4cb41135}\index{KartaWidget@{KartaWidget}!KartaWidget@{KartaWidget}}
+\index{KartaWidget@{KartaWidget}!KartaWidget@{KartaWidget}}
+\doxysubsubsection{\texorpdfstring{KartaWidget()}{KartaWidget()}}
+{\footnotesize\ttfamily \label{class_karta_widget_aa104af8b0ca4c2b73f64433a4cb41135} 
+Karta\+Widget::\+\+Karta\+Widget (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Konstruktor widżetu. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Wskaźnik na rodzica. \\
+\hline
+\end{DoxyParams}
+
+
+\label{class_karta_widget_doc-func-members}
+\Hypertarget{class_karta_widget_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_karta_widget_a71b4c4f4f5e6b7e25f414370bf9722ef}\index{KartaWidget@{KartaWidget}!getCzyWybrana@{getCzyWybrana}}
+\index{getCzyWybrana@{getCzyWybrana}!KartaWidget@{KartaWidget}}
+\doxysubsubsection{\texorpdfstring{getCzyWybrana()}{getCzyWybrana()}}
+{\footnotesize\ttfamily \label{class_karta_widget_a71b4c4f4f5e6b7e25f414370bf9722ef} 
+bool Karta\+Widget::\+get\+Czy\+Wybrana (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Getter sprawdzający status zaznaczenia (Enkapsulacja). 
+
+\begin{DoxyReturn}{Returns}
+True jeśli podświetlona. 
+\end{DoxyReturn}
+\Hypertarget{class_karta_widget_aaa3840c240fcc963e38be9fc0ea1ab14}\index{KartaWidget@{KartaWidget}!kartaKliknieta@{kartaKliknieta}}
+\index{kartaKliknieta@{kartaKliknieta}!KartaWidget@{KartaWidget}}
+\doxysubsubsection{\texorpdfstring{kartaKliknieta}{kartaKliknieta}}
+{\footnotesize\ttfamily \label{class_karta_widget_aaa3840c240fcc963e38be9fc0ea1ab14} 
+void Karta\+Widget::\+karta\+Kliknieta (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_karta_widget}{Karta\+Widget}} \texorpdfstring{$\ast$}{*}}]{kliknieta\+Karta}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [signal]}}
+
+
+
+Emituje sygnał natychmiastowo po detekcji zdarzenia {\ttfamily mouse\+Press}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em kliknieta\+Karta} & Wskaźnik this. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_karta_widget_a8e638ef515d279905c5ed6ef9f4b1bd1}\index{KartaWidget@{KartaWidget}!mousePressEvent@{mousePressEvent}}
+\index{mousePressEvent@{mousePressEvent}!KartaWidget@{KartaWidget}}
+\doxysubsubsection{\texorpdfstring{mousePressEvent()}{mousePressEvent()}}
+{\footnotesize\ttfamily \label{class_karta_widget_a8e638ef515d279905c5ed6ef9f4b1bd1} 
+void Karta\+Widget::\+mouse\+Press\+Event (\begin{DoxyParamCaption}\item[{QMouse\+Event \texorpdfstring{$\ast$}{*}}]{event}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+
+
+Obsługa zdarzenia kliknięcia myszą w kartę. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em event} & Wskaźnik na obiekt zdarzenia. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_karta_widget_a694c8a9c4dcd9b55f0a6995525c9e7f6}\index{KartaWidget@{KartaWidget}!oznaczJakoWybrana@{oznaczJakoWybrana}}
+\index{oznaczJakoWybrana@{oznaczJakoWybrana}!KartaWidget@{KartaWidget}}
+\doxysubsubsection{\texorpdfstring{oznaczJakoWybrana()}{oznaczJakoWybrana()}}
+{\footnotesize\ttfamily \label{class_karta_widget_a694c8a9c4dcd9b55f0a6995525c9e7f6} 
+void Karta\+Widget::\+oznacz\+Jako\+Wybrana (\begin{DoxyParamCaption}\item[{bool}]{status}{}\end{DoxyParamCaption})}
+
+
+
+Zmienia stan wizualny (podniesienie). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em status} & Stan bycia zaznaczonym. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_karta_widget_a9dcef8a441abc029cebe8fc4b9f2627c}\index{KartaWidget@{KartaWidget}!ustawGrafike@{ustawGrafike}}
+\index{ustawGrafike@{ustawGrafike}!KartaWidget@{KartaWidget}}
+\doxysubsubsection{\texorpdfstring{ustawGrafike()}{ustawGrafike()}}
+{\footnotesize\ttfamily \label{class_karta_widget_a9dcef8a441abc029cebe8fc4b9f2627c} 
+void Karta\+Widget::\+ustaw\+Grafike (\begin{DoxyParamCaption}\item[{const QString \&}]{sciezka\+Do\+Foto}{}\end{DoxyParamCaption})}
+
+
+
+Ładuje grafikę z zasobów. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sciezka\+Do\+Foto} & Relatywna ścieżka qrc. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_karta_widget_a8ddde21399e61e978ffd7b30c459c986}\index{KartaWidget@{KartaWidget}!ustawStatystyki@{ustawStatystyki}}
+\index{ustawStatystyki@{ustawStatystyki}!KartaWidget@{KartaWidget}}
+\doxysubsubsection{\texorpdfstring{ustawStatystyki()}{ustawStatystyki()}}
+{\footnotesize\ttfamily \label{class_karta_widget_a8ddde21399e61e978ffd7b30c459c986} 
+void Karta\+Widget::\+ustaw\+Statystyki (\begin{DoxyParamCaption}\item[{int}]{obrazenia}{, }\item[{int}]{koszt\+PA}{, }\item[{const QString \&}]{opis}{}\end{DoxyParamCaption})}
+
+
+
+Renderuje bazowe statystyki na widget-\/cie UI. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em obrazenia} & Obrażenia na kartę. \\
+\hline
+{\em koszt\+PA} & Wartość kosztu PA. \\
+\hline
+{\em opis} & Własny opis tekstu na labelu. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files:\+\begin{DoxyCompactItemize}
+\item 
+kartawidget.\+h\item 
+build/\+\+Desktop\+\_\+\+Qt\+\_\+6\+\_\+11\+\_\+0\+\_\+\+Min\+GW\+\_\+64\+\_\+bit-\/\+Debug/\+\+Boss\+Raid\+\_\+autogen/\+\+EWIEGA46\+WW/\+moc\+\_\+kartawidget.\+cpp\item 
+kartawidget.\+cpp\end{DoxyCompactItemize}

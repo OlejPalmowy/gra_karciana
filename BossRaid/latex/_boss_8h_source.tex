@@ -1,0 +1,64 @@
+\doxysection{Boss.\+h}
+\hypertarget{_boss_8h_source}{}\label{_boss_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ BOSS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ BOSS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}Postac.h"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_boss_aad612352d5481d2df0140108b96adc08}{Boss}}\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_postac_aba612316a337055b5785dc1be15f5f89}{Postac}}\ \{}
+\DoxyCodeLine{00011\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{int}\ faza;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{bool}\ wlasnieWszedlWFaze2\ =\ \textcolor{keyword}{false};\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \ \ \doxymbox{\hyperlink{class_boss_aad612352d5481d2df0140108b96adc08}{Boss}}(std::string\ n,\ \textcolor{keywordtype}{int}\ startHp)\ :\ \doxymbox{\hyperlink{class_postac_aba612316a337055b5785dc1be15f5f89}{Postac}}(n,\ startHp)\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ faza\ =\ 1;}
+\DoxyCodeLine{00023\ \ \ \ \ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_boss_a04c28e24d3dc954f857be1e0f6287199}{przygotujDoTury}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ wlasnieWszedlWFaze2\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_boss_a6ba3532d7af33b930fb210966557041d}{getFaza}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ faza;\ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_boss_acbd80ef7a3cb96c4db00afef26b52afd}{aktualizujFaze}}()\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (faza\ ==\ 1\ \&\&\ \doxymbox{\hyperlink{class_postac_a5ae818ca77db33e671b11c3ec92acd08}{hp}}\ <=\ (\doxymbox{\hyperlink{class_postac_a0c69657e5a524020d13f065f9aed121e}{maxHp}}\ /\ 2))\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ faza\ =\ 2;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_postac_af39c31b668c444d72d1e6fec090762a9}{dodajPancerz}}(15);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ wlasnieWszedlWFaze2\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_boss_a0662f37ca04965dd2fecb29950adab88}{wykonajAtak}}(\textcolor{keywordtype}{int}\ typAtaku)\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_boss_acbd80ef7a3cb96c4db00afef26b52afd}{aktualizujFaze}}();}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ dmg\ =\ 0;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (faza\ ==\ 1)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (typAtaku\ ==\ 1)\ dmg\ =\ 10;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (typAtaku\ ==\ 2)\ dmg\ =\ 18;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (typAtaku\ ==\ 3)\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_postac_af39c31b668c444d72d1e6fec090762a9}{dodajPancerz}}(15);}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_postac_a5ae818ca77db33e671b11c3ec92acd08}{hp}}\ +=\ 15;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{class_postac_a5ae818ca77db33e671b11c3ec92acd08}{hp}}\ >\ \doxymbox{\hyperlink{class_postac_a0c69657e5a524020d13f065f9aed121e}{maxHp}})\ \doxymbox{\hyperlink{class_postac_a5ae818ca77db33e671b11c3ec92acd08}{hp}}\ =\ \doxymbox{\hyperlink{class_postac_a0c69657e5a524020d13f065f9aed121e}{maxHp}};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dmg\ =\ 0;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (faza\ ==\ 2)\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (typAtaku\ ==\ 1)\ dmg\ =\ 18;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (typAtaku\ ==\ 2)\ dmg\ =\ 34;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (typAtaku\ ==\ 3)\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_postac_af39c31b668c444d72d1e6fec090762a9}{dodajPancerz}}(15);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_postac_a5ae818ca77db33e671b11c3ec92acd08}{hp}}\ +=\ 15;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{class_postac_a5ae818ca77db33e671b11c3ec92acd08}{hp}}\ >\ \doxymbox{\hyperlink{class_postac_a0c69657e5a524020d13f065f9aed121e}{maxHp}})\ \doxymbox{\hyperlink{class_postac_a5ae818ca77db33e671b11c3ec92acd08}{hp}}\ =\ \doxymbox{\hyperlink{class_postac_a0c69657e5a524020d13f065f9aed121e}{maxHp}};}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dmg\ =\ 0;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ dmg;}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \};}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ BOSS\_H}}
+
+\end{DoxyCode}

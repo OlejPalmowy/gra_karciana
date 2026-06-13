@@ -1,0 +1,94 @@
+\doxysection{Karta\+Driada Class Reference}
+\hypertarget{class_karta_driada}{}\label{class_karta_driada}\index{KartaDriada@{KartaDriada}}
+
+
+Klasa pochodna reprezentująca kartę Driady (Uzdrowicielki).  
+
+
+
+
+{\ttfamily \+\#include $<$Karta.\+h$>$}
+
+Inheritance diagram for Karta\+Driada:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_karta_driada}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+QString \doxymbox{\hyperlink{class_karta_driada_af52b2a6df0c127853d68bb57001cc55c}{zagraj}} (\doxymbox{\hyperlink{class_boss}{Boss}} \texorpdfstring{$\ast$}{*}boss, \doxymbox{\hyperlink{class_gracz}{Gracz}} \texorpdfstring{$\ast$}{*}gracz) override
+\begin{DoxyCompactList}\small\item\em Czysto wirtualna metoda do zagrania karty (POLIMORFIZM). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_karta}{Karta}}}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_karta_a63a39f00dd9c7e5919d35586856a9488}{Karta}} (std::\+string n, int typ, int dmg\+HP, int dmg\+Armor, int armor\+Bonus, int koszt)
+\begin{DoxyCompactList}\small\item\em Konstruktor bazowy dla wszystkich kart. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Karta} ()=default
+\begin{DoxyCompactList}\small\item\em Wirtualny destruktor dla poprawnego niszczenia klas pochodnych. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_karta_afdb704ffb55f9c32daca69d06d024d1d}{get\+Nazwa}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca nazwę karty. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_karta_ac4beb4df1817d42bff30a5f481c9715a}{get\+Typ}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca typ jednostki. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_karta_a3e74b80d0c35f62562e4be3fe3b482b1}{get\+Obrazenia\+HP}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca obrażenia HP. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_karta_a74787e602b9d603ba6150de0e47d1e82}{get\+Obrazenia\+Pancerz}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca obrażenia pancerza. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_karta_a2aa838ae7e04e89126cfe64fbfe84d8d}{get\+Pancerz\+Bonus}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca bonus do pancerza. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_karta_ab238fc2fd324e8a2e02fa380256af187}{get\+Koszt\+PA}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca koszt zagrania. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \doxymbox{\hyperlink{class_karta}{Karta}}}
+\begin{DoxyCompactItemize}
+\item 
+std::\+string {\bfseries nazwa}
+\begin{DoxyCompactList}\small\item\em Nazwa karty. \end{DoxyCompactList}\item 
+int {\bfseries typ\+Jednostki}
+\begin{DoxyCompactList}\small\item\em 1 = Rycerz, 2 = Łucznik, 3 = Mag, 4 = Uzdrowicielka \end{DoxyCompactList}\item 
+int {\bfseries obrazenia\+HP}
+\begin{DoxyCompactList}\small\item\em Obrażenia zadawane bezpośrednio w punkty życia. \end{DoxyCompactList}\item 
+int {\bfseries obrazenia\+Pancerz}
+\begin{DoxyCompactList}\small\item\em Obrażenia zadawane w pancerz. \end{DoxyCompactList}\item 
+int {\bfseries pancerz\+Bonus}
+\begin{DoxyCompactList}\small\item\em Ile pancerza daje graczowi. \end{DoxyCompactList}\item 
+int {\bfseries koszt\+PA}
+\begin{DoxyCompactList}\small\item\em Koszt zagrania w Punktach Akcji. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Klasa pochodna reprezentująca kartę Driady (Uzdrowicielki). 
+
+\label{class_karta_driada_doc-func-members}
+\Hypertarget{class_karta_driada_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_karta_driada_af52b2a6df0c127853d68bb57001cc55c}\index{KartaDriada@{KartaDriada}!zagraj@{zagraj}}
+\index{zagraj@{zagraj}!KartaDriada@{KartaDriada}}
+\doxysubsubsection{\texorpdfstring{zagraj()}{zagraj()}}
+{\footnotesize\ttfamily \label{class_karta_driada_af52b2a6df0c127853d68bb57001cc55c} 
+QString Karta\+Driada::\+zagraj (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_boss}{Boss}} \texorpdfstring{$\ast$}{*}}]{boss}{, }\item[{\doxymbox{\hyperlink{class_gracz}{Gracz}} \texorpdfstring{$\ast$}{*}}]{gracz}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Czysto wirtualna metoda do zagrania karty (POLIMORFIZM). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em boss} & Wskaźnik na bossa. \\
+\hline
+{\em gracz} & Wskaźnik na gracza. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Opcjonalny komunikat do wyświetlenia w interfejsie logów (lub puste, jeśli brak). 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_karta_a40d378ee589a76d96116e3368e995d76}{Karta}}.
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+Karta.\+h\end{DoxyCompactItemize}

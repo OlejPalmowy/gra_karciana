@@ -1,0 +1,98 @@
+\doxysection{Karta.\+h}
+\hypertarget{_karta_8h_source}{}\label{_karta_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ KARTA\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ KARTA\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QString>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}Boss.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}Gracz.h"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_karta_a63a39f00dd9c7e5919d35586856a9488}{Karta}}\ \{}
+\DoxyCodeLine{00014\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00015\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_karta_a5d1ae8e65d5c61f5ee1d5b0f954447cb}{nazwa}};\ \ \ \ \ \ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_karta_a30335f53005836488ae858e88f737c1c}{typJednostki}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_karta_a8430264c50453437b468e46a987d19d1}{obrazeniaHP}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_karta_a893e6d481dfc057074ca85fcd5639e95}{obrazeniaPancerz}};\ \ \ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_karta_aa76dc410b2d7e2fcdf60327925e01905}{pancerzBonus}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_karta_abafb061d09af9d098fe71bbfba556c6e}{kosztPA}};\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00032\ \ \ \ \ \doxymbox{\hyperlink{class_karta_a63a39f00dd9c7e5919d35586856a9488}{Karta}}(std::string\ n,\ \textcolor{keywordtype}{int}\ typ,\ \textcolor{keywordtype}{int}\ dmgHP,\ \textcolor{keywordtype}{int}\ dmgArmor,\ \textcolor{keywordtype}{int}\ armorBonus,\ \textcolor{keywordtype}{int}\ koszt)}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ :\ \doxymbox{\hyperlink{class_karta_a5d1ae8e65d5c61f5ee1d5b0f954447cb}{nazwa}}(n),\ \doxymbox{\hyperlink{class_karta_a30335f53005836488ae858e88f737c1c}{typJednostki}}(typ),\ \doxymbox{\hyperlink{class_karta_a8430264c50453437b468e46a987d19d1}{obrazeniaHP}}(dmgHP),}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_karta_a893e6d481dfc057074ca85fcd5639e95}{obrazeniaPancerz}}(dmgArmor),\ \doxymbox{\hyperlink{class_karta_aa76dc410b2d7e2fcdf60327925e01905}{pancerzBonus}}(armorBonus),\ \doxymbox{\hyperlink{class_karta_abafb061d09af9d098fe71bbfba556c6e}{kosztPA}}(koszt)\ \{\}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{virtual}\ \doxymbox{\hyperlink{class_karta_a51c0bc76a601d8fd024d436d0de4f266}{\string~Karta}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{virtual}\ QString\ \doxymbox{\hyperlink{class_karta_a40d378ee589a76d96116e3368e995d76}{zagraj}}(\doxymbox{\hyperlink{class_boss}{Boss}}*\ boss,\ \doxymbox{\hyperlink{class_gracz}{Gracz}}*\ gracz)\ =\ 0;}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00048\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_karta_afdb704ffb55f9c32daca69d06d024d1d}{getNazwa}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_karta_a5d1ae8e65d5c61f5ee1d5b0f954447cb}{nazwa}};\ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_karta_ac4beb4df1817d42bff30a5f481c9715a}{getTyp}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_karta_a30335f53005836488ae858e88f737c1c}{typJednostki}};\ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_karta_a3e74b80d0c35f62562e4be3fe3b482b1}{getObrazeniaHP}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_karta_a8430264c50453437b468e46a987d19d1}{obrazeniaHP}};\ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_karta_a74787e602b9d603ba6150de0e47d1e82}{getObrazeniaPancerz}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_karta_a893e6d481dfc057074ca85fcd5639e95}{obrazeniaPancerz}};\ \}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_karta_a2aa838ae7e04e89126cfe64fbfe84d8d}{getPancerzBonus}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_karta_aa76dc410b2d7e2fcdf60327925e01905}{pancerzBonus}};\ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_karta_ab238fc2fd324e8a2e02fa380256af187}{getKosztPA}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_karta_abafb061d09af9d098fe71bbfba556c6e}{kosztPA}};\ \}}
+\DoxyCodeLine{00059\ \};}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{class\ }KartaRycerz\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_karta_a63a39f00dd9c7e5919d35586856a9488}{Karta}}\ \{}
+\DoxyCodeLine{00065\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00066\ \ \ \ \ KartaRycerz()\ :\ \doxymbox{\hyperlink{class_karta_a63a39f00dd9c7e5919d35586856a9488}{Karta}}(\textcolor{stringliteral}{"{}Rycerz"{}},\ 1,\ 3,\ 9,\ 5,\ 3)\ \{\}}
+\DoxyCodeLine{00067\ \ \ \ \ QString\ \doxymbox{\hyperlink{class_karta_rycerz_a3f36ca0e7c6145705417df119f88cf6b}{zagraj}}(\doxymbox{\hyperlink{class_boss}{Boss}}*\ boss,\ \doxymbox{\hyperlink{class_gracz}{Gracz}}*\ gracz)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ pancerzBossa\ =\ boss-\/>\doxymbox{\hyperlink{class_postac_ab1a51b706af9a8c7703e1955cef1bca4}{getPancerz}}();}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pancerzBossa\ >\ 0)\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pancerzBossa\ >=\ \doxymbox{\hyperlink{class_karta_a74787e602b9d603ba6150de0e47d1e82}{getObrazeniaPancerz}}())\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boss-\/>\doxymbox{\hyperlink{class_postac_a2469e8cd4f1b40a3029087d2cd97ef4a}{otrzymajObrazenia}}(\doxymbox{\hyperlink{class_karta_a74787e602b9d603ba6150de0e47d1e82}{getObrazeniaPancerz}}());}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boss-\/>\doxymbox{\hyperlink{class_postac_a2469e8cd4f1b40a3029087d2cd97ef4a}{otrzymajObrazenia}}(pancerzBossa);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ boss-\/>\doxymbox{\hyperlink{class_postac_a2469e8cd4f1b40a3029087d2cd97ef4a}{otrzymajObrazenia}}(\doxymbox{\hyperlink{class_karta_a3e74b80d0c35f62562e4be3fe3b482b1}{getObrazeniaHP}}());}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ gracz-\/>\doxymbox{\hyperlink{class_postac_af39c31b668c444d72d1e6fec090762a9}{dodajPancerz}}(\doxymbox{\hyperlink{class_karta_a2aa838ae7e04e89126cfe64fbfe84d8d}{getPancerzBonus}}());}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{class\ }KartaLucznik\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_karta_a63a39f00dd9c7e5919d35586856a9488}{Karta}}\ \{}
+\DoxyCodeLine{00087\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00088\ \ \ \ \ KartaLucznik()\ :\ \doxymbox{\hyperlink{class_karta_a63a39f00dd9c7e5919d35586856a9488}{Karta}}(\textcolor{stringliteral}{"{}Łucznik"{}},\ 2,\ 4,\ 3,\ 0,\ 1)\ \{\}}
+\DoxyCodeLine{00089\ \ \ \ \ QString\ \doxymbox{\hyperlink{class_karta_lucznik_a73ce48f360c401949283a522811a07ae}{zagraj}}(\doxymbox{\hyperlink{class_boss}{Boss}}*\ boss,\ \doxymbox{\hyperlink{class_gracz}{Gracz}}*\ gracz)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ pancerzBossa\ =\ boss-\/>\doxymbox{\hyperlink{class_postac_ab1a51b706af9a8c7703e1955cef1bca4}{getPancerz}}();}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pancerzBossa\ >\ 0)\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pancerzBossa\ >=\ \doxymbox{\hyperlink{class_karta_a74787e602b9d603ba6150de0e47d1e82}{getObrazeniaPancerz}}())\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boss-\/>\doxymbox{\hyperlink{class_postac_a2469e8cd4f1b40a3029087d2cd97ef4a}{otrzymajObrazenia}}(\doxymbox{\hyperlink{class_karta_a74787e602b9d603ba6150de0e47d1e82}{getObrazeniaPancerz}}());}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boss-\/>\doxymbox{\hyperlink{class_postac_a2469e8cd4f1b40a3029087d2cd97ef4a}{otrzymajObrazenia}}(pancerzBossa);}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ boss-\/>\doxymbox{\hyperlink{class_postac_a2469e8cd4f1b40a3029087d2cd97ef4a}{otrzymajObrazenia}}(\doxymbox{\hyperlink{class_karta_a3e74b80d0c35f62562e4be3fe3b482b1}{getObrazeniaHP}}());}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{class\ }KartaMag\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_karta_a63a39f00dd9c7e5919d35586856a9488}{Karta}}\ \{}
+\DoxyCodeLine{00108\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00109\ \ \ \ \ KartaMag()\ :\ \doxymbox{\hyperlink{class_karta_a63a39f00dd9c7e5919d35586856a9488}{Karta}}(\textcolor{stringliteral}{"{}Mag"{}},\ 3,\ 15,\ 3,\ 0,\ 3)\ \{\}}
+\DoxyCodeLine{00110\ \ \ \ \ QString\ \doxymbox{\hyperlink{class_karta_mag_a52b9af2acbe39e47e1a8c0b637b2fe38}{zagraj}}(\doxymbox{\hyperlink{class_boss}{Boss}}*\ boss,\ \doxymbox{\hyperlink{class_gracz}{Gracz}}*\ gracz)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ pancerzBossa\ =\ boss-\/>\doxymbox{\hyperlink{class_postac_ab1a51b706af9a8c7703e1955cef1bca4}{getPancerz}}();}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ boss-\/>\doxymbox{\hyperlink{class_postac_a086476e5e3b6349e00dd498f4cca9ab7}{resetujPancerz}}();}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ boss-\/>\doxymbox{\hyperlink{class_postac_a2469e8cd4f1b40a3029087d2cd97ef4a}{otrzymajObrazenia}}(\doxymbox{\hyperlink{class_karta_a3e74b80d0c35f62562e4be3fe3b482b1}{getObrazeniaHP}}());}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ boss-\/>\doxymbox{\hyperlink{class_postac_af39c31b668c444d72d1e6fec090762a9}{dodajPancerz}}(pancerzBossa);}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00116\ \ \ \ \ \}}
+\DoxyCodeLine{00117\ \};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00122\ \textcolor{keyword}{class\ }KartaDriada\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_karta_a63a39f00dd9c7e5919d35586856a9488}{Karta}}\ \{}
+\DoxyCodeLine{00123\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00124\ \ \ \ \ KartaDriada()\ :\ \doxymbox{\hyperlink{class_karta_a63a39f00dd9c7e5919d35586856a9488}{Karta}}(\textcolor{stringliteral}{"{}Driada"{}},\ 4,\ 0,\ 0,\ 0,\ 0)\ \{\}}
+\DoxyCodeLine{00125\ \ \ \ \ QString\ \doxymbox{\hyperlink{class_karta_driada_af52b2a6df0c127853d68bb57001cc55c}{zagraj}}(\doxymbox{\hyperlink{class_boss}{Boss}}*\ boss,\ \doxymbox{\hyperlink{class_gracz}{Gracz}}*\ gracz)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ gracz-\/>\doxymbox{\hyperlink{class_gracz_aa077046c81f343f74439f692e1749d51}{ulecz}}(10);}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Uzdrowicielka\ leczy\ Twoje\ rany!\ (+10\ HP)"{}};}
+\DoxyCodeLine{00128\ \ \ \ \ \}}
+\DoxyCodeLine{00129\ \};}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ KARTA\_H}}
+
+\end{DoxyCode}

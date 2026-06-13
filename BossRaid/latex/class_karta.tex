@@ -1,0 +1,205 @@
+\doxysection{Karta Class Reference}
+\hypertarget{class_karta}{}\label{class_karta}\index{Karta@{Karta}}
+
+
+Abstrakcyjna klasa bazowa reprezentująca kartę w grze. Wykorzystuje polimorfizm do implementacji unikalnych zachowań kart.  
+
+
+
+
+{\ttfamily \+\#include $<$Karta.\+h$>$}
+
+Inheritance diagram for Karta:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_karta}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_karta_a63a39f00dd9c7e5919d35586856a9488}{Karta}} (std::\+string n, int typ, int dmg\+HP, int dmg\+Armor, int armor\+Bonus, int koszt)
+\begin{DoxyCompactList}\small\item\em Konstruktor bazowy dla wszystkich kart. \end{DoxyCompactList}\item 
+\Hypertarget{class_karta_a51c0bc76a601d8fd024d436d0de4f266}\label{class_karta_a51c0bc76a601d8fd024d436d0de4f266} 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Karta} ()=default
+\begin{DoxyCompactList}\small\item\em Wirtualny destruktor dla poprawnego niszczenia klas pochodnych. \end{DoxyCompactList}\item 
+virtual QString \doxymbox{\hyperlink{class_karta_a40d378ee589a76d96116e3368e995d76}{zagraj}} (\doxymbox{\hyperlink{class_boss}{Boss}} \texorpdfstring{$\ast$}{*}boss, \doxymbox{\hyperlink{class_gracz}{Gracz}} \texorpdfstring{$\ast$}{*}gracz)=0
+\begin{DoxyCompactList}\small\item\em Czysto wirtualna metoda do zagrania karty (POLIMORFIZM). \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_karta_afdb704ffb55f9c32daca69d06d024d1d}{get\+Nazwa}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca nazwę karty. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_karta_ac4beb4df1817d42bff30a5f481c9715a}{get\+Typ}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca typ jednostki. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_karta_a3e74b80d0c35f62562e4be3fe3b482b1}{get\+Obrazenia\+HP}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca obrażenia HP. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_karta_a74787e602b9d603ba6150de0e47d1e82}{get\+Obrazenia\+Pancerz}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca obrażenia pancerza. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_karta_a2aa838ae7e04e89126cfe64fbfe84d8d}{get\+Pancerz\+Bonus}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca bonus do pancerza. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_karta_ab238fc2fd324e8a2e02fa380256af187}{get\+Koszt\+PA}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca koszt zagrania. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_karta_a5d1ae8e65d5c61f5ee1d5b0f954447cb}\label{class_karta_a5d1ae8e65d5c61f5ee1d5b0f954447cb} 
+std::\+string {\bfseries nazwa}
+\begin{DoxyCompactList}\small\item\em Nazwa karty. \end{DoxyCompactList}\item 
+\Hypertarget{class_karta_a30335f53005836488ae858e88f737c1c}\label{class_karta_a30335f53005836488ae858e88f737c1c} 
+int {\bfseries typ\+Jednostki}
+\begin{DoxyCompactList}\small\item\em 1 = Rycerz, 2 = Łucznik, 3 = Mag, 4 = Uzdrowicielka \end{DoxyCompactList}\item 
+\Hypertarget{class_karta_a8430264c50453437b468e46a987d19d1}\label{class_karta_a8430264c50453437b468e46a987d19d1} 
+int {\bfseries obrazenia\+HP}
+\begin{DoxyCompactList}\small\item\em Obrażenia zadawane bezpośrednio w punkty życia. \end{DoxyCompactList}\item 
+\Hypertarget{class_karta_a893e6d481dfc057074ca85fcd5639e95}\label{class_karta_a893e6d481dfc057074ca85fcd5639e95} 
+int {\bfseries obrazenia\+Pancerz}
+\begin{DoxyCompactList}\small\item\em Obrażenia zadawane w pancerz. \end{DoxyCompactList}\item 
+\Hypertarget{class_karta_aa76dc410b2d7e2fcdf60327925e01905}\label{class_karta_aa76dc410b2d7e2fcdf60327925e01905} 
+int {\bfseries pancerz\+Bonus}
+\begin{DoxyCompactList}\small\item\em Ile pancerza daje graczowi. \end{DoxyCompactList}\item 
+\Hypertarget{class_karta_abafb061d09af9d098fe71bbfba556c6e}\label{class_karta_abafb061d09af9d098fe71bbfba556c6e} 
+int {\bfseries koszt\+PA}
+\begin{DoxyCompactList}\small\item\em Koszt zagrania w Punktach Akcji. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Abstrakcyjna klasa bazowa reprezentująca kartę w grze. Wykorzystuje polimorfizm do implementacji unikalnych zachowań kart. 
+
+\label{class_karta_doc-constructors}
+\Hypertarget{class_karta_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_karta_a63a39f00dd9c7e5919d35586856a9488}\index{Karta@{Karta}!Karta@{Karta}}
+\index{Karta@{Karta}!Karta@{Karta}}
+\doxysubsubsection{\texorpdfstring{Karta()}{Karta()}}
+{\footnotesize\ttfamily \label{class_karta_a63a39f00dd9c7e5919d35586856a9488} 
+Karta::\+\+Karta (\begin{DoxyParamCaption}\item[{std::\+string}]{n}{, }\item[{int}]{typ}{, }\item[{int}]{dmg\+HP}{, }\item[{int}]{dmg\+Armor}{, }\item[{int}]{armor\+Bonus}{, }\item[{int}]{koszt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Konstruktor bazowy dla wszystkich kart. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & Nazwa karty. \\
+\hline
+{\em typ} & Typ jednostki. \\
+\hline
+{\em dmg\+HP} & Obrażenia HP. \\
+\hline
+{\em dmg\+Armor} & Obrażenia pancerza. \\
+\hline
+{\em armor\+Bonus} & Bonus do pancerza gracza. \\
+\hline
+{\em koszt} & Koszt PA. \\
+\hline
+\end{DoxyParams}
+
+
+\label{class_karta_doc-func-members}
+\Hypertarget{class_karta_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_karta_ab238fc2fd324e8a2e02fa380256af187}\index{Karta@{Karta}!getKosztPA@{getKosztPA}}
+\index{getKosztPA@{getKosztPA}!Karta@{Karta}}
+\doxysubsubsection{\texorpdfstring{getKosztPA()}{getKosztPA()}}
+{\footnotesize\ttfamily \label{class_karta_ab238fc2fd324e8a2e02fa380256af187} 
+int Karta::\+get\+Koszt\+PA (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Zwraca koszt zagrania. 
+
+\begin{DoxyReturn}{Returns}
+Koszt w punktach akcji (PA). 
+\end{DoxyReturn}
+\Hypertarget{class_karta_afdb704ffb55f9c32daca69d06d024d1d}\index{Karta@{Karta}!getNazwa@{getNazwa}}
+\index{getNazwa@{getNazwa}!Karta@{Karta}}
+\doxysubsubsection{\texorpdfstring{getNazwa()}{getNazwa()}}
+{\footnotesize\ttfamily \label{class_karta_afdb704ffb55f9c32daca69d06d024d1d} 
+std::\+string Karta::\+get\+Nazwa (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Zwraca nazwę karty. 
+
+\begin{DoxyReturn}{Returns}
+Ciąg znaków z nazwą. 
+\end{DoxyReturn}
+\Hypertarget{class_karta_a3e74b80d0c35f62562e4be3fe3b482b1}\index{Karta@{Karta}!getObrazeniaHP@{getObrazeniaHP}}
+\index{getObrazeniaHP@{getObrazeniaHP}!Karta@{Karta}}
+\doxysubsubsection{\texorpdfstring{getObrazeniaHP()}{getObrazeniaHP()}}
+{\footnotesize\ttfamily \label{class_karta_a3e74b80d0c35f62562e4be3fe3b482b1} 
+int Karta::\+get\+Obrazenia\+HP (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Zwraca obrażenia HP. 
+
+\begin{DoxyReturn}{Returns}
+Wartość obrażeń. 
+\end{DoxyReturn}
+\Hypertarget{class_karta_a74787e602b9d603ba6150de0e47d1e82}\index{Karta@{Karta}!getObrazeniaPancerz@{getObrazeniaPancerz}}
+\index{getObrazeniaPancerz@{getObrazeniaPancerz}!Karta@{Karta}}
+\doxysubsubsection{\texorpdfstring{getObrazeniaPancerz()}{getObrazeniaPancerz()}}
+{\footnotesize\ttfamily \label{class_karta_a74787e602b9d603ba6150de0e47d1e82} 
+int Karta::\+get\+Obrazenia\+Pancerz (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Zwraca obrażenia pancerza. 
+
+\begin{DoxyReturn}{Returns}
+Wartość obrażeń w pancerz. 
+\end{DoxyReturn}
+\Hypertarget{class_karta_a2aa838ae7e04e89126cfe64fbfe84d8d}\index{Karta@{Karta}!getPancerzBonus@{getPancerzBonus}}
+\index{getPancerzBonus@{getPancerzBonus}!Karta@{Karta}}
+\doxysubsubsection{\texorpdfstring{getPancerzBonus()}{getPancerzBonus()}}
+{\footnotesize\ttfamily \label{class_karta_a2aa838ae7e04e89126cfe64fbfe84d8d} 
+int Karta::\+get\+Pancerz\+Bonus (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Zwraca bonus do pancerza. 
+
+\begin{DoxyReturn}{Returns}
+Wartość pancerza dodawanego graczowi. 
+\end{DoxyReturn}
+\Hypertarget{class_karta_ac4beb4df1817d42bff30a5f481c9715a}\index{Karta@{Karta}!getTyp@{getTyp}}
+\index{getTyp@{getTyp}!Karta@{Karta}}
+\doxysubsubsection{\texorpdfstring{getTyp()}{getTyp()}}
+{\footnotesize\ttfamily \label{class_karta_ac4beb4df1817d42bff30a5f481c9715a} 
+int Karta::\+get\+Typ (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Zwraca typ jednostki. 
+
+\begin{DoxyReturn}{Returns}
+Typ jednostki (1-\/4). 
+\end{DoxyReturn}
+\Hypertarget{class_karta_a40d378ee589a76d96116e3368e995d76}\index{Karta@{Karta}!zagraj@{zagraj}}
+\index{zagraj@{zagraj}!Karta@{Karta}}
+\doxysubsubsection{\texorpdfstring{zagraj()}{zagraj()}}
+{\footnotesize\ttfamily \label{class_karta_a40d378ee589a76d96116e3368e995d76} 
+virtual QString Karta::\+zagraj (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_boss}{Boss}} \texorpdfstring{$\ast$}{*}}]{boss}{, }\item[{\doxymbox{\hyperlink{class_gracz}{Gracz}} \texorpdfstring{$\ast$}{*}}]{gracz}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Czysto wirtualna metoda do zagrania karty (POLIMORFIZM). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em boss} & Wskaźnik na bossa. \\
+\hline
+{\em gracz} & Wskaźnik na gracza. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Opcjonalny komunikat do wyświetlenia w interfejsie logów (lub puste, jeśli brak). 
+\end{DoxyReturn}
+
+
+Implemented in \doxymbox{\hyperlink{class_karta_driada_af52b2a6df0c127853d68bb57001cc55c}{Karta\+Driada}}, \doxymbox{\hyperlink{class_karta_lucznik_a73ce48f360c401949283a522811a07ae}{Karta\+Lucznik}}, \doxymbox{\hyperlink{class_karta_mag_a52b9af2acbe39e47e1a8c0b637b2fe38}{Karta\+Mag}}, and \doxymbox{\hyperlink{class_karta_rycerz_a3f36ca0e7c6145705417df119f88cf6b}{Karta\+Rycerz}}.
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+Karta.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,229 @@
+\doxysection{Gracz Class Reference}
+\hypertarget{class_gracz}{}\label{class_gracz}\index{Gracz@{Gracz}}
+
+
+Klasa reprezentująca głównego bohatera (Gracza). Dziedziczy po klasie bazowej \doxylink{class_postac}{Postac}.  
+
+
+
+
+{\ttfamily \+\#include $<$Gracz.\+h$>$}
+
+Inheritance diagram for Gracz:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_gracz}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_gracz_a95ccb132a58e19e5da39fe62424e1537}{Gracz}} (std::\+string n, int start\+Hp, int start\+PA)
+\begin{DoxyCompactList}\small\item\em Konstruktor obiektu gracza. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_gracz_a7581be135052e45c5cb42140d4f93d31}{przygotuj\+Do\+Tury}} () override
+\begin{DoxyCompactList}\small\item\em Implementacja wirtualnej metody -\/ nadaje abstrakcji realny sens. \doxylink{class_gracz}{Gracz} przygotowując się do tury, odnawia swoje punkty akcji. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_gracz_ad655dea3edfdc8ef59691be4b403a2b8}{usun\+Karte\+ZReki}} (int indeks)
+\begin{DoxyCompactList}\small\item\em Usuwa kartę z ręki na podstawie indeksu. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_gracz_aa077046c81f343f74439f692e1749d51}{ulecz}} (int wartosc)
+\begin{DoxyCompactList}\small\item\em Leczy gracza, pamiętając o limitach maksymalnego HP. \end{DoxyCompactList}\item 
+\Hypertarget{class_gracz_a251f093a1451b1e3bc8147f47cdd5e24}\label{class_gracz_a251f093a1451b1e3bc8147f47cdd5e24} 
+void {\bfseries wyczysc\+Reke} ()
+\begin{DoxyCompactList}\small\item\em Czyści całkowicie rękę gracza z kart. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_gracz_a707cfc61fde03828e82eadcb172fe365}{get\+PA}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca ilość punktów akcji. \end{DoxyCompactList}\item 
+std::\+vector$<$ std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_karta}{Karta}} $>$ $>$ \doxymbox{\hyperlink{class_gracz_a85096af325ca5b68e28667ba53940965}{get\+Reka}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca wektor kart w ręce. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_gracz_a933cfe13cbab45986b6a9d3ff6c62d44}{dodaj\+Bonus\+PA}} (int wartosc)
+\begin{DoxyCompactList}\small\item\em Dodaje wartość do bonusu punktów akcji. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_gracz_a0e15f5a6ec37efc9bbc74b794d553d95}{zuzyj\+PA}} (int koszt)
+\begin{DoxyCompactList}\small\item\em Zmniejsza ilość PA o określony koszt (jeśli to możliwe). \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_gracz_ad941daf0831a58f3a0d51f2df3024c1f}{dodaj\+Karte\+Do\+Reki}} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_karta}{Karta}} $>$ k)
+\begin{DoxyCompactList}\small\item\em Dodaje nową kartę do ręki. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_postac}{Postac}}}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_postac_aba612316a337055b5785dc1be15f5f89}{Postac}} (std::\+string n, int start\+HP)
+\begin{DoxyCompactList}\small\item\em Inicjuje podstawowe właściwości bytu w grze. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Postac} ()=default
+\begin{DoxyCompactList}\small\item\em Wirtualny destruktor gwarantuje poprawne zwalnianie klas pochodnych. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_postac_a2469e8cd4f1b40a3029087d2cd97ef4a}{otrzymaj\+Obrazenia}} (int dmg)
+\begin{DoxyCompactList}\small\item\em Logika otrzymywania obrażeń uwzględniająca mechaniczną absorpcję przez pancerz. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_postac_afae228b82d4f7fcf27b9a79ac1863a95}{get\+Hp}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca obecne HP. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_postac_aec7d8b9262e58d80b90483c725223ac6}{get\+Max\+Hp}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca maksymalne HP. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_postac_ab1a51b706af9a8c7703e1955cef1bca4}{get\+Pancerz}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca Pancerz. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_postac_a2e910452b7162a98c8c455a2cd394aa0}{get\+Nazwa}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca Imię. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_postac_af39c31b668c444d72d1e6fec090762a9}{dodaj\+Pancerz}} (int wartosc)
+\begin{DoxyCompactList}\small\item\em Dodaje punkty pancerza chroniącego postać. \end{DoxyCompactList}\item 
+void {\bfseries resetuj\+Pancerz} ()
+\begin{DoxyCompactList}\small\item\em Zeruje całkowicie licznik tarczy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \doxymbox{\hyperlink{class_postac}{Postac}}}
+\begin{DoxyCompactItemize}
+\item 
+std::\+string {\bfseries nazwa}
+\begin{DoxyCompactList}\small\item\em Imię jednostki. \end{DoxyCompactList}\item 
+int {\bfseries hp}
+\begin{DoxyCompactList}\small\item\em Bieżące punkty życia. \end{DoxyCompactList}\item 
+int {\bfseries max\+Hp}
+\begin{DoxyCompactList}\small\item\em Maksymalne punkty życia bazowego. \end{DoxyCompactList}\item 
+int {\bfseries pancerz}
+\begin{DoxyCompactList}\small\item\em Tarcza przyjmująca obrażenia w pierwszej kolejności. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Klasa reprezentująca głównego bohatera (Gracza). Dziedziczy po klasie bazowej \doxylink{class_postac}{Postac}. 
+
+\label{class_gracz_doc-constructors}
+\Hypertarget{class_gracz_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_gracz_a95ccb132a58e19e5da39fe62424e1537}\index{Gracz@{Gracz}!Gracz@{Gracz}}
+\index{Gracz@{Gracz}!Gracz@{Gracz}}
+\doxysubsubsection{\texorpdfstring{Gracz()}{Gracz()}}
+{\footnotesize\ttfamily \label{class_gracz_a95ccb132a58e19e5da39fe62424e1537} 
+Gracz::\+\+Gracz (\begin{DoxyParamCaption}\item[{std::\+string}]{n}{, }\item[{int}]{start\+Hp}{, }\item[{int}]{start\+PA}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Konstruktor obiektu gracza. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & Nazwa gracza. \\
+\hline
+{\em start\+Hp} & Początkowe (i maksymalne) zdrowie. \\
+\hline
+{\em start\+PA} & Początkowe punkty akcji. \\
+\hline
+\end{DoxyParams}
+
+
+\label{class_gracz_doc-func-members}
+\Hypertarget{class_gracz_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_gracz_a933cfe13cbab45986b6a9d3ff6c62d44}\index{Gracz@{Gracz}!dodajBonusPA@{dodajBonusPA}}
+\index{dodajBonusPA@{dodajBonusPA}!Gracz@{Gracz}}
+\doxysubsubsection{\texorpdfstring{dodajBonusPA()}{dodajBonusPA()}}
+{\footnotesize\ttfamily \label{class_gracz_a933cfe13cbab45986b6a9d3ff6c62d44} 
+void Gracz::\+dodaj\+Bonus\+PA (\begin{DoxyParamCaption}\item[{int}]{wartosc}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Dodaje wartość do bonusu punktów akcji. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wartosc} & Wartość bonusu. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_gracz_ad941daf0831a58f3a0d51f2df3024c1f}\index{Gracz@{Gracz}!dodajKarteDoReki@{dodajKarteDoReki}}
+\index{dodajKarteDoReki@{dodajKarteDoReki}!Gracz@{Gracz}}
+\doxysubsubsection{\texorpdfstring{dodajKarteDoReki()}{dodajKarteDoReki()}}
+{\footnotesize\ttfamily \label{class_gracz_ad941daf0831a58f3a0d51f2df3024c1f} 
+void Gracz::\+dodaj\+Karte\+Do\+Reki (\begin{DoxyParamCaption}\item[{std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_karta}{Karta}} $>$}]{k}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Dodaje nową kartę do ręki. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em k} & Inteligentny wskaźnik na dodawaną kartę. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_gracz_a707cfc61fde03828e82eadcb172fe365}\index{Gracz@{Gracz}!getPA@{getPA}}
+\index{getPA@{getPA}!Gracz@{Gracz}}
+\doxysubsubsection{\texorpdfstring{getPA()}{getPA()}}
+{\footnotesize\ttfamily \label{class_gracz_a707cfc61fde03828e82eadcb172fe365} 
+int Gracz::\+get\+PA (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Zwraca ilość punktów akcji. 
+
+\begin{DoxyReturn}{Returns}
+Obecne punkty PA. 
+\end{DoxyReturn}
+\Hypertarget{class_gracz_a85096af325ca5b68e28667ba53940965}\index{Gracz@{Gracz}!getReka@{getReka}}
+\index{getReka@{getReka}!Gracz@{Gracz}}
+\doxysubsubsection{\texorpdfstring{getReka()}{getReka()}}
+{\footnotesize\ttfamily \label{class_gracz_a85096af325ca5b68e28667ba53940965} 
+std::\+vector$<$ std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_karta}{Karta}} $>$ $>$ Gracz::\+get\+Reka (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Zwraca wektor kart w ręce. 
+
+\begin{DoxyReturn}{Returns}
+Ręka gracza. 
+\end{DoxyReturn}
+\Hypertarget{class_gracz_a7581be135052e45c5cb42140d4f93d31}\index{Gracz@{Gracz}!przygotujDoTury@{przygotujDoTury}}
+\index{przygotujDoTury@{przygotujDoTury}!Gracz@{Gracz}}
+\doxysubsubsection{\texorpdfstring{przygotujDoTury()}{przygotujDoTury()}}
+{\footnotesize\ttfamily \label{class_gracz_a7581be135052e45c5cb42140d4f93d31} 
+void Gracz::\+przygotuj\+Do\+Tury (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implementacja wirtualnej metody -\/ nadaje abstrakcji realny sens. \doxylink{class_gracz}{Gracz} przygotowując się do tury, odnawia swoje punkty akcji. 
+
+
+
+Implements \doxymbox{\hyperlink{class_postac_a59c7e598fb6ad403c7116202cf8d9ebb}{Postac}}.
+
+\Hypertarget{class_gracz_aa077046c81f343f74439f692e1749d51}\index{Gracz@{Gracz}!ulecz@{ulecz}}
+\index{ulecz@{ulecz}!Gracz@{Gracz}}
+\doxysubsubsection{\texorpdfstring{ulecz()}{ulecz()}}
+{\footnotesize\ttfamily \label{class_gracz_aa077046c81f343f74439f692e1749d51} 
+void Gracz::\+ulecz (\begin{DoxyParamCaption}\item[{int}]{wartosc}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Leczy gracza, pamiętając o limitach maksymalnego HP. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em wartosc} & Ilość punktów do wyleczenia. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_gracz_ad655dea3edfdc8ef59691be4b403a2b8}\index{Gracz@{Gracz}!usunKarteZReki@{usunKarteZReki}}
+\index{usunKarteZReki@{usunKarteZReki}!Gracz@{Gracz}}
+\doxysubsubsection{\texorpdfstring{usunKarteZReki()}{usunKarteZReki()}}
+{\footnotesize\ttfamily \label{class_gracz_ad655dea3edfdc8ef59691be4b403a2b8} 
+void Gracz::\+usun\+Karte\+ZReki (\begin{DoxyParamCaption}\item[{int}]{indeks}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Usuwa kartę z ręki na podstawie indeksu. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em indeks} & Indeks karty do usunięcia. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_gracz_a0e15f5a6ec37efc9bbc74b794d553d95}\index{Gracz@{Gracz}!zuzyjPA@{zuzyjPA}}
+\index{zuzyjPA@{zuzyjPA}!Gracz@{Gracz}}
+\doxysubsubsection{\texorpdfstring{zuzyjPA()}{zuzyjPA()}}
+{\footnotesize\ttfamily \label{class_gracz_a0e15f5a6ec37efc9bbc74b794d553d95} 
+bool Gracz::\+zuzyj\+PA (\begin{DoxyParamCaption}\item[{int}]{koszt}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Zmniejsza ilość PA o określony koszt (jeśli to możliwe). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em koszt} & Koszt zagrania. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true, jeśli odjęto PA, false jeśli gracz ma ich za mało. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+Gracz.\+h\end{DoxyCompactItemize}

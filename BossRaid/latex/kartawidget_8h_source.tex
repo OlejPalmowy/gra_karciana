@@ -1,0 +1,43 @@
+\doxysection{kartawidget.\+h}
+\hypertarget{kartawidget_8h_source}{}\label{kartawidget_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ KARTAWIDGET\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ KARTAWIDGET\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QWidget>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }Ui\ \{}
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_ui_1_1_karta_widget}{KartaWidget}};}
+\DoxyCodeLine{00008\ \}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_karta_widget_aa104af8b0ca4c2b73f64433a4cb41135}{KartaWidget}}\ :\ \textcolor{keyword}{public}\ QWidget}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_karta_widget_a8e638ef515d279905c5ed6ef9f4b1bd1}{mousePressEvent}}(QMouseEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{explicit}\ \doxymbox{\hyperlink{class_karta_widget_aa104af8b0ca4c2b73f64433a4cb41135}{KartaWidget}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00032\ \ \ \ \ \doxymbox{\hyperlink{class_karta_widget_afa28e780c2c1ee73f85ca4a97ba88496}{\string~KartaWidget}}();}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_karta_widget_a9dcef8a441abc029cebe8fc4b9f2627c}{ustawGrafike}}(\textcolor{keyword}{const}\ QString\ \&sciezkaDoFoto);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_karta_widget_a694c8a9c4dcd9b55f0a6995525c9e7f6}{oznaczJakoWybrana}}(\textcolor{keywordtype}{bool}\ status);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_karta_widget_a71b4c4f4f5e6b7e25f414370bf9722ef}{getCzyWybrana}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ czyWybrana;\ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_karta_widget_a8ddde21399e61e978ffd7b30c459c986}{ustawStatystyki}}(\textcolor{keywordtype}{int}\ obrazenia,\ \textcolor{keywordtype}{int}\ kosztPA,\ \textcolor{keyword}{const}\ QString\ \&opis);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ signals:}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_karta_widget_aaa3840c240fcc963e38be9fc0ea1ab14}{kartaKliknieta}}(\doxymbox{\hyperlink{class_karta_widget}{KartaWidget}}*\ kliknietaKarta);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00068\ \ \ \ \ \doxymbox{\hyperlink{class_ui_1_1_karta_widget}{Ui::KartaWidget}}\ *ui;\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{bool}\ czyWybrana\ =\ \textcolor{keyword}{false};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00070\ \};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ KARTAWIDGET\_H}}
+
+\end{DoxyCode}

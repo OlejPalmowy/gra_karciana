@@ -1,0 +1,70 @@
+\doxysection{Gracz.\+h}
+\hypertarget{_gracz_8h_source}{}\label{_gracz_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ GRACZ\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ GRACZ\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}Postac.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_karta}{Karta}};\ \textcolor{comment}{//\ Forward\ declaration\ dla\ uniknięcia\ pętli\ nagłówków}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_gracz_a95ccb132a58e19e5da39fe62424e1537}{Gracz}}\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_postac_aba612316a337055b5785dc1be15f5f89}{Postac}}\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ punktyAkcji;\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{int}\ maxPunktyAkcji;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00018\ \ \ \ \ std::vector<std::shared\_ptr<Karta>>\ reka;\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{int}\ bonusPA\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \doxymbox{\hyperlink{class_gracz_a95ccb132a58e19e5da39fe62424e1537}{Gracz}}(std::string\ n,\ \textcolor{keywordtype}{int}\ startHp,\ \textcolor{keywordtype}{int}\ startPA)\ :\ \doxymbox{\hyperlink{class_postac_aba612316a337055b5785dc1be15f5f89}{Postac}}(n,\ startHp)\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ maxPunktyAkcji\ =\ startPA;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ punktyAkcji\ =\ startPA;}
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_gracz_a7581be135052e45c5cb42140d4f93d31}{przygotujDoTury}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ punktyAkcji\ +=\ (9\ +\ bonusPA);}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ bonusPA\ =\ 0;}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_gracz_ad655dea3edfdc8ef59691be4b403a2b8}{usunKarteZReki}}(\textcolor{keywordtype}{int}\ indeks)\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (indeks\ >=\ 0\ \&\&\ indeks\ <\ reka.size())\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ reka.erase(reka.begin()\ +\ indeks);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_gracz_aa077046c81f343f74439f692e1749d51}{ulecz}}(\textcolor{keywordtype}{int}\ wartosc)\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_postac_a5ae818ca77db33e671b11c3ec92acd08}{hp}}\ +=\ wartosc;}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{class_postac_a5ae818ca77db33e671b11c3ec92acd08}{hp}}\ >\ \doxymbox{\hyperlink{class_postac_a0c69657e5a524020d13f065f9aed121e}{maxHp}})\ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_postac_a5ae818ca77db33e671b11c3ec92acd08}{hp}}\ =\ \doxymbox{\hyperlink{class_postac_a0c69657e5a524020d13f065f9aed121e}{maxHp}};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_gracz_a251f093a1451b1e3bc8147f47cdd5e24}{wyczyscReke}}()\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ reka.clear();}
+\DoxyCodeLine{00066\ \ \ \ \ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_gracz_a707cfc61fde03828e82eadcb172fe365}{getPA}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ punktyAkcji;\ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00072\ \ \ \ \ std::vector<std::shared\_ptr<Karta>>\ \doxymbox{\hyperlink{class_gracz_a85096af325ca5b68e28667ba53940965}{getReka}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ reka;\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_gracz_a933cfe13cbab45986b6a9d3ff6c62d44}{dodajBonusPA}}(\textcolor{keywordtype}{int}\ wartosc)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ bonusPA\ +=\ wartosc;}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_gracz_a0e15f5a6ec37efc9bbc74b794d553d95}{zuzyjPA}}(\textcolor{keywordtype}{int}\ koszt)\ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (punktyAkcji\ >=\ koszt)\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ punktyAkcji\ -\/=\ koszt;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00093\ \ \ \ \ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_gracz_ad941daf0831a58f3a0d51f2df3024c1f}{dodajKarteDoReki}}(std::shared\_ptr<Karta>\ k)\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ reka.push\_back(k);}
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \};}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ GRACZ\_H}}
+
+\end{DoxyCode}

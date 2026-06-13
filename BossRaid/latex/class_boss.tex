@@ -1,0 +1,156 @@
+\doxysection{Boss Class Reference}
+\hypertarget{class_boss}{}\label{class_boss}\index{Boss@{Boss}}
+
+
+Klasa reprezentująca bossa sterowanego przez system. Dziedziczy po klasie bazowej \doxylink{class_postac}{Postac}.  
+
+
+
+
+{\ttfamily \+\#include $<$Boss.\+h$>$}
+
+Inheritance diagram for Boss:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_boss}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_boss_aad612352d5481d2df0140108b96adc08}{Boss}} (std::\+string n, int start\+Hp)
+\begin{DoxyCompactList}\small\item\em Konstruktor bossa. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_boss_a04c28e24d3dc954f857be1e0f6287199}{przygotuj\+Do\+Tury}} () override
+\begin{DoxyCompactList}\small\item\em Implementacja wirtualnej metody -\/ nadaje abstrakcji realny sens. Resetuje cykl bossa. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_boss_a6ba3532d7af33b930fb210966557041d}{get\+Faza}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca aktualną fazę bossa. \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{class_boss_acbd80ef7a3cb96c4db00afef26b52afd}{aktualizuj\+Faze}} ()
+\begin{DoxyCompactList}\small\item\em Oblicza i ewentualnie przełącza fazę bossa w zależności od zdrowia. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_boss_a0662f37ca04965dd2fecb29950adab88}{wykonaj\+Atak}} (int typ\+Ataku)
+\begin{DoxyCompactList}\small\item\em Akcja ataku bossa z podziałem na fazy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_postac}{Postac}}}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_postac_aba612316a337055b5785dc1be15f5f89}{Postac}} (std::\+string n, int start\+HP)
+\begin{DoxyCompactList}\small\item\em Inicjuje podstawowe właściwości bytu w grze. \end{DoxyCompactList}\item 
+virtual {\bfseries \texorpdfstring{$\sim$}{\string~}\+Postac} ()=default
+\begin{DoxyCompactList}\small\item\em Wirtualny destruktor gwarantuje poprawne zwalnianie klas pochodnych. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_postac_a2469e8cd4f1b40a3029087d2cd97ef4a}{otrzymaj\+Obrazenia}} (int dmg)
+\begin{DoxyCompactList}\small\item\em Logika otrzymywania obrażeń uwzględniająca mechaniczną absorpcję przez pancerz. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_postac_afae228b82d4f7fcf27b9a79ac1863a95}{get\+Hp}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca obecne HP. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_postac_aec7d8b9262e58d80b90483c725223ac6}{get\+Max\+Hp}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca maksymalne HP. \end{DoxyCompactList}\item 
+int \doxymbox{\hyperlink{class_postac_ab1a51b706af9a8c7703e1955cef1bca4}{get\+Pancerz}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca Pancerz. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_postac_a2e910452b7162a98c8c455a2cd394aa0}{get\+Nazwa}} () const
+\begin{DoxyCompactList}\small\item\em Zwraca Imię. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_postac_af39c31b668c444d72d1e6fec090762a9}{dodaj\+Pancerz}} (int wartosc)
+\begin{DoxyCompactList}\small\item\em Dodaje punkty pancerza chroniącego postać. \end{DoxyCompactList}\item 
+void {\bfseries resetuj\+Pancerz} ()
+\begin{DoxyCompactList}\small\item\em Zeruje całkowicie licznik tarczy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \doxymbox{\hyperlink{class_postac}{Postac}}}
+\begin{DoxyCompactItemize}
+\item 
+std::\+string {\bfseries nazwa}
+\begin{DoxyCompactList}\small\item\em Imię jednostki. \end{DoxyCompactList}\item 
+int {\bfseries hp}
+\begin{DoxyCompactList}\small\item\em Bieżące punkty życia. \end{DoxyCompactList}\item 
+int {\bfseries max\+Hp}
+\begin{DoxyCompactList}\small\item\em Maksymalne punkty życia bazowego. \end{DoxyCompactList}\item 
+int {\bfseries pancerz}
+\begin{DoxyCompactList}\small\item\em Tarcza przyjmująca obrażenia w pierwszej kolejności. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Klasa reprezentująca bossa sterowanego przez system. Dziedziczy po klasie bazowej \doxylink{class_postac}{Postac}. 
+
+\label{class_boss_doc-constructors}
+\Hypertarget{class_boss_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_boss_aad612352d5481d2df0140108b96adc08}\index{Boss@{Boss}!Boss@{Boss}}
+\index{Boss@{Boss}!Boss@{Boss}}
+\doxysubsubsection{\texorpdfstring{Boss()}{Boss()}}
+{\footnotesize\ttfamily \label{class_boss_aad612352d5481d2df0140108b96adc08} 
+Boss::\+\+Boss (\begin{DoxyParamCaption}\item[{std::\+string}]{n}{, }\item[{int}]{start\+Hp}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Konstruktor bossa. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & Nazwa bossa. \\
+\hline
+{\em start\+Hp} & Ilość początkowego życia. \\
+\hline
+\end{DoxyParams}
+
+
+\label{class_boss_doc-func-members}
+\Hypertarget{class_boss_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_boss_acbd80ef7a3cb96c4db00afef26b52afd}\index{Boss@{Boss}!aktualizujFaze@{aktualizujFaze}}
+\index{aktualizujFaze@{aktualizujFaze}!Boss@{Boss}}
+\doxysubsubsection{\texorpdfstring{aktualizujFaze()}{aktualizujFaze()}}
+{\footnotesize\ttfamily \label{class_boss_acbd80ef7a3cb96c4db00afef26b52afd} 
+bool Boss::\+aktualizuj\+Faze (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Oblicza i ewentualnie przełącza fazę bossa w zależności od zdrowia. 
+
+\begin{DoxyReturn}{Returns}
+true tylko przy momencie przejścia między fazami. 
+\end{DoxyReturn}
+\Hypertarget{class_boss_a6ba3532d7af33b930fb210966557041d}\index{Boss@{Boss}!getFaza@{getFaza}}
+\index{getFaza@{getFaza}!Boss@{Boss}}
+\doxysubsubsection{\texorpdfstring{getFaza()}{getFaza()}}
+{\footnotesize\ttfamily \label{class_boss_a6ba3532d7af33b930fb210966557041d} 
+int Boss::\+get\+Faza (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Zwraca aktualną fazę bossa. 
+
+\begin{DoxyReturn}{Returns}
+Numer fazy. 
+\end{DoxyReturn}
+\Hypertarget{class_boss_a04c28e24d3dc954f857be1e0f6287199}\index{Boss@{Boss}!przygotujDoTury@{przygotujDoTury}}
+\index{przygotujDoTury@{przygotujDoTury}!Boss@{Boss}}
+\doxysubsubsection{\texorpdfstring{przygotujDoTury()}{przygotujDoTury()}}
+{\footnotesize\ttfamily \label{class_boss_a04c28e24d3dc954f857be1e0f6287199} 
+void Boss::\+przygotuj\+Do\+Tury (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implementacja wirtualnej metody -\/ nadaje abstrakcji realny sens. Resetuje cykl bossa. 
+
+
+
+Implements \doxymbox{\hyperlink{class_postac_a59c7e598fb6ad403c7116202cf8d9ebb}{Postac}}.
+
+\Hypertarget{class_boss_a0662f37ca04965dd2fecb29950adab88}\index{Boss@{Boss}!wykonajAtak@{wykonajAtak}}
+\index{wykonajAtak@{wykonajAtak}!Boss@{Boss}}
+\doxysubsubsection{\texorpdfstring{wykonajAtak()}{wykonajAtak()}}
+{\footnotesize\ttfamily \label{class_boss_a0662f37ca04965dd2fecb29950adab88} 
+int Boss::\+wykonaj\+Atak (\begin{DoxyParamCaption}\item[{int}]{typ\+Ataku}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Akcja ataku bossa z podziałem na fazy. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em typ\+Ataku} & Typ losowanego zachowania. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Ostateczna wartość zadanego damage\textquotesingle{}u do gracza. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+Boss.\+h\end{DoxyCompactItemize}

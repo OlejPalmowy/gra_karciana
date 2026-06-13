@@ -1,0 +1,79 @@
+\doxysection{ui\+\_\+kartawidget.\+h}
+\hypertarget{ui__kartawidget_8h_source}{}\label{ui__kartawidget_8h_source}\index{build/Desktop\_Qt\_6\_11\_0\_MinGW\_64\_bit-\/Debug/BossRaid\_autogen/include/ui\_kartawidget.h@{build/Desktop\_Qt\_6\_11\_0\_MinGW\_64\_bit-\/Debug/BossRaid\_autogen/include/ui\_kartawidget.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/********************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ Form\ generated\ from\ reading\ UI\ file\ 'kartawidget.ui'}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ Created\ by:\ Qt\ User\ Interface\ Compiler\ version\ 6.11.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**}}
+\DoxyCodeLine{00006\ \textcolor{comment}{**\ WARNING!\ All\ changes\ made\ in\ this\ file\ will\ be\ lost\ when\ recompiling\ UI\ file!}}
+\DoxyCodeLine{00007\ \textcolor{comment}{********************************************************************************/}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ UI\_KARTAWIDGET\_H}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ UI\_KARTAWIDGET\_H}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <QtCore/QVariant>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <QtWidgets/QApplication>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <QtWidgets/QLabel>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <QtWidgets/QWidget>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ QT\_BEGIN\_NAMESPACE}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_ui___karta_widget}{Ui\_KartaWidget}}}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ QLabel\ *tloKarty;}
+\DoxyCodeLine{00023\ \ \ \ \ QLabel\ *labelPa;}
+\DoxyCodeLine{00024\ \ \ \ \ QLabel\ *labelAtak;}
+\DoxyCodeLine{00025\ \ \ \ \ QLabel\ *labelOpis;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ setupUi(QWidget\ *\doxymbox{\hyperlink{class_karta_widget}{KartaWidget}})}
+\DoxyCodeLine{00028\ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{class_karta_widget}{KartaWidget}}-\/>objectName().isEmpty())}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_karta_widget}{KartaWidget}}-\/>setObjectName(\textcolor{stringliteral}{"{}KartaWidget"{}});}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_karta_widget}{KartaWidget}}-\/>resize(120,\ 166);}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_karta_widget}{KartaWidget}}-\/>setMaximumSize(QSize(120,\ 166));}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ tloKarty\ =\ \textcolor{keyword}{new}\ QLabel(\doxymbox{\hyperlink{class_karta_widget}{KartaWidget}});}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ tloKarty-\/>setObjectName(\textcolor{stringliteral}{"{}tloKarty"{}});}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ tloKarty-\/>setGeometry(QRect(0,\ 0,\ 120,\ 166));}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ tloKarty-\/>setMaximumSize(QSize(120,\ 166));}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ tloKarty-\/>setAutoFillBackground(\textcolor{keyword}{false});}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ tloKarty-\/>setPixmap(QPixmap(QString::fromUtf8(\textcolor{stringliteral}{"{}:/assets/karta\_czarodziej.png"{}})));}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ tloKarty-\/>setAlignment(Qt::AlignmentFlag::AlignBottom|Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ tloKarty-\/>setWordWrap(\textcolor{keyword}{false});}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ labelPa\ =\ \textcolor{keyword}{new}\ QLabel(\doxymbox{\hyperlink{class_karta_widget}{KartaWidget}});}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ labelPa-\/>setObjectName(\textcolor{stringliteral}{"{}labelPa"{}});}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ labelPa-\/>setGeometry(QRect(100,\ 0,\ 31,\ 20));}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ labelAtak\ =\ \textcolor{keyword}{new}\ QLabel(\doxymbox{\hyperlink{class_karta_widget}{KartaWidget}});}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ labelAtak-\/>setObjectName(\textcolor{stringliteral}{"{}labelAtak"{}});}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ labelAtak-\/>setGeometry(QRect(10,\ 0,\ 21,\ 20));}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ labelOpis\ =\ \textcolor{keyword}{new}\ QLabel(\doxymbox{\hyperlink{class_karta_widget}{KartaWidget}});}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ labelOpis-\/>setObjectName(\textcolor{stringliteral}{"{}labelOpis"{}});}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ labelOpis-\/>setGeometry(QRect(12,\ 119,\ 101,\ 41));}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ retranslateUi(\doxymbox{\hyperlink{class_karta_widget}{KartaWidget}});}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ QMetaObject::connectSlotsByName(\doxymbox{\hyperlink{class_karta_widget}{KartaWidget}});}
+\DoxyCodeLine{00054\ \ \ \ \ \}\ \textcolor{comment}{//\ setupUi}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{void}\ retranslateUi(QWidget\ *\doxymbox{\hyperlink{class_karta_widget}{KartaWidget}})}
+\DoxyCodeLine{00057\ \ \ \ \ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_karta_widget}{KartaWidget}}-\/>setWindowTitle(QCoreApplication::translate(\textcolor{stringliteral}{"{}KartaWidget"{}},\ \textcolor{stringliteral}{"{}Form"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ tloKarty-\/>setText(QString());}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ labelPa-\/>setText(QCoreApplication::translate(\textcolor{stringliteral}{"{}KartaWidget"{}},\ \textcolor{stringliteral}{"{}10"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ labelAtak-\/>setText(QCoreApplication::translate(\textcolor{stringliteral}{"{}KartaWidget"{}},\ \textcolor{stringliteral}{"{}5"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ labelOpis-\/>setText(QCoreApplication::translate(\textcolor{stringliteral}{"{}KartaWidget"{}},\ \textcolor{stringliteral}{"{}TextLabel"{}},\ \textcolor{keyword}{nullptr}));}
+\DoxyCodeLine{00063\ \ \ \ \ \}\ \textcolor{comment}{//\ retranslateUi}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{namespace\ }Ui\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_ui_1_1_karta_widget}{KartaWidget}}:\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_ui___karta_widget}{Ui\_KartaWidget}}\ \{\};}
+\DoxyCodeLine{00069\ \}\ \textcolor{comment}{//\ namespace\ Ui}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ QT\_END\_NAMESPACE}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ UI\_KARTAWIDGET\_H}}
+
+\end{DoxyCode}
